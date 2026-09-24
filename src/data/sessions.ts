@@ -20,7 +20,7 @@ export const sessions: SessionDef[] = [
     endTime: "10:10",
     activityType: "roda_de_conversa",
     title: "Molares quentes,\nmentes frias",
-    speakerId: "speaker-1",
+    speakerId: "anarela-bernardi",
     shortDescription:
       "Uma conversa prática sobre estratégias de diagnóstico, tomada de decisão e condução de casos clínicos desafiadores.",
     fullDescription:
@@ -40,7 +40,7 @@ export const sessions: SessionDef[] = [
     endTime: "10:15",
     activityType: "caso_clinico",
     title: "Caso clínico:\ndecisão sob pressão",
-    speakerId: "speaker-5",
+    speakerId: "arthur-napoleao",
     shortDescription:
       "Discussão em grupo pequeno de um caso complexo, do diagnóstico ao plano de tratamento final.",
     fullDescription:
@@ -60,7 +60,7 @@ export const sessions: SessionDef[] = [
     endTime: "11:45",
     activityType: "demonstracao",
     title: "Ultrassom em Endodontia:\nquando e como usar",
-    speakerId: "speaker-2",
+    speakerId: "danilo-shimanuko",
     shortDescription:
       "Demonstração prática do uso do ultrassom em diferentes etapas do tratamento endodôntico.",
     fullDescription:
@@ -80,7 +80,7 @@ export const sessions: SessionDef[] = [
     endTime: "15:00",
     activityType: "hands_on",
     title: "Biocerâmicos\nna prática",
-    speakerId: "speaker-3",
+    speakerId: "murilo-borges",
     shortDescription:
       "Mão na massa com cimentos biocerâmicos: manipulação, indicações e técnica de obturação.",
     fullDescription:
@@ -102,7 +102,7 @@ export const sessions: SessionDef[] = [
     endTime: "10:40",
     activityType: "roda_de_conversa",
     title: "Irrigação na Endodontia:\nprotocolos que funcionam",
-    speakerId: "speaker-4",
+    speakerId: "alexandre-bortoloto",
     shortDescription:
       "Troca de experiências sobre protocolos de irrigação que realmente fazem diferença no resultado clínico.",
     fullDescription:
@@ -122,7 +122,7 @@ export const sessions: SessionDef[] = [
     endTime: "12:15",
     activityType: "caso_clinico",
     title: "Retratamento:\nquando vale a pena tentar",
-    speakerId: "speaker-1",
+    speakerId: "aloisio-napoleao",
     shortDescription:
       "Critérios práticos para decidir entre retratamento, cirurgia parapical ou exodontia.",
     fullDescription:
@@ -142,7 +142,7 @@ export const sessions: SessionDef[] = [
     endTime: "16:00",
     activityType: "roda_hands_on",
     title: "Instrumentação reciprocante\nna prática",
-    speakerId: "speaker-5",
+    speakerId: "key-fabiano-souza",
     shortDescription:
       "Roda de conversa seguida de prática com sistemas reciprocantes em blocos de treino.",
     fullDescription:
@@ -164,7 +164,7 @@ export const sessions: SessionDef[] = [
     endTime: "10:10",
     activityType: "roda_de_conversa",
     title: "Diagnóstico diferencial\nem dor orofacial",
-    speakerId: "speaker-2",
+    speakerId: "josiane-almeida",
     shortDescription:
       "Uma prosa sobre como diferenciar dor de origem endodôntica de outras causas orofaciais.",
     fullDescription:
@@ -184,7 +184,7 @@ export const sessions: SessionDef[] = [
     endTime: "12:00",
     activityType: "hands_on",
     title: "Técnicas de obturação:\nalém do convencional",
-    speakerId: "speaker-3",
+    speakerId: "eduardo-akisue",
     shortDescription:
       "Prática guiada com técnicas de obturação alternativas à condensação lateral clássica.",
     fullDescription:
@@ -204,7 +204,7 @@ export const sessions: SessionDef[] = [
     endTime: "14:40",
     activityType: "demonstracao",
     title: "Traumatismo dentoalveolar:\nconduta na urgência",
-    speakerId: "speaker-4",
+    speakerId: "bruno-bisi",
     shortDescription:
       "Demonstração objetiva da conduta nos primeiros atendimentos de traumatismo dentoalveolar.",
     fullDescription:

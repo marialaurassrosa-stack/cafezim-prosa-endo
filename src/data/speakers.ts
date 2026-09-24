@@ -1,57 +1,92 @@
 import type { Speaker } from "@/types";
 
 /**
- * PLACEHOLDER DATA — nomes, credenciais e biografias fictícios apenas para
- * demonstrar o layout e o fluxo de seleção. Substitua cada campo pelos dados
- * reais dos professores convidados antes de publicar. `photoUrl: null` faz o
- * card usar o avatar com iniciais; troque por um caminho em /public quando a
- * foto oficial (tratada em roxo/P&B) estiver disponível.
+ * Nomes e fotos são reais (recebidos da Biodental). Credenciais, instituição
+ * e biografia ainda NÃO foram confirmadas — mantidas como "a confirmar" de
+ * propósito, para não publicar uma qualificação profissional inventada para
+ * uma pessoa real. Preencha esses três campos assim que a Biodental enviar
+ * o currículo de cada professor.
  */
 export const speakers: Speaker[] = [
   {
-    id: "speaker-1",
-    name: "Prof. Nome Sobrenome 1",
-    credentials: "Especialista em Endodontia (placeholder)",
+    id: "anarela-bernardi",
+    name: "Profa. Dra. Anarela Bernardi",
+    credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
-    bio: "Biografia a ser fornecida pela Biodental. Este texto é um espaço reservado e não representa informações reais.",
-    photoUrl: null,
-    isPlaceholder: true,
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/anarela-bernardi.png",
   },
   {
-    id: "speaker-2",
-    name: "Profa. Nome Sobrenome 2",
-    credentials: "Mestre e Doutora em Endodontia (placeholder)",
+    id: "arthur-napoleao",
+    name: "Prof. Ms. Arthur Napoleão",
+    credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
-    bio: "Biografia a ser fornecida pela Biodental. Este texto é um espaço reservado e não representa informações reais.",
-    photoUrl: null,
-    isPlaceholder: true,
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/arthur-napoleao.png",
   },
   {
-    id: "speaker-3",
-    name: "Prof. Nome Sobrenome 3",
-    credentials: "Especialista em Endodontia (placeholder)",
+    id: "danilo-shimanuko",
+    name: "Prof. Danilo Shimanuko",
+    credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
-    bio: "Biografia a ser fornecida pela Biodental. Este texto é um espaço reservado e não representa informações reais.",
-    photoUrl: null,
-    isPlaceholder: true,
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/danilo-shimanuko.png",
   },
   {
-    id: "speaker-4",
-    name: "Profa. Nome Sobrenome 4",
-    credentials: "Doutora em Endodontia (placeholder)",
+    id: "murilo-borges",
+    name: "Prof. Dr. Murilo Borges",
+    credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
-    bio: "Biografia a ser fornecida pela Biodental. Este texto é um espaço reservado e não representa informações reais.",
-    photoUrl: null,
-    isPlaceholder: true,
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/murilo-borges.png",
   },
   {
-    id: "speaker-5",
-    name: "Prof. Nome Sobrenome 5",
-    credentials: "Especialista em Endodontia (placeholder)",
+    id: "alexandre-bortoloto",
+    name: "Dr. Alexandre Bortoloto",
+    credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
-    bio: "Biografia a ser fornecida pela Biodental. Este texto é um espaço reservado e não representa informações reais.",
-    photoUrl: null,
-    isPlaceholder: true,
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/alexandre-bortoloto.png",
+  },
+  {
+    id: "aloisio-napoleao",
+    name: "Prof. Ms. Aloísio Napoleão",
+    credentials: "Currículo a confirmar",
+    institution: "Instituição a confirmar",
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/aloisio-napoleao.png",
+  },
+  {
+    id: "key-fabiano-souza",
+    name: "Prof. Dr. Key Fabiano Souza",
+    credentials: "Currículo a confirmar",
+    institution: "Instituição a confirmar",
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/key-fabiano-souza.png",
+  },
+  {
+    id: "josiane-almeida",
+    name: "Profa. Dra. Josiane Almeida",
+    credentials: "Currículo a confirmar",
+    institution: "Instituição a confirmar",
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/josiane-almeida.png",
+  },
+  {
+    id: "eduardo-akisue",
+    name: "Prof. Dr. Eduardo Akisue",
+    credentials: "Currículo a confirmar",
+    institution: "Instituição a confirmar",
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/eduardo-akisue.png",
+  },
+  {
+    id: "bruno-bisi",
+    name: "Prof. Bruno Bisi",
+    credentials: "Currículo a confirmar",
+    institution: "Instituição a confirmar",
+    bio: "Biografia a ser fornecida pela Biodental.",
+    photoUrl: "/images/speakers/bruno-bisi.png",
   },
 ];
 
