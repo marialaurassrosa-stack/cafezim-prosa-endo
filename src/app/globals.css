@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #231b28;
+
+  /* Biodental brand */
+  --color-purple: #731aba;
+  --color-purple-dark: #521285;
+  --color-purple-600: #6207ab;
+  --color-purple-700: #750bc0;
+  --color-purple-800: #8312de;
+  --color-yellow: #ffc400;
+  --color-red: #ff2b3d;
+  --color-cream: #f8f5fa;
+  --color-cream-2: #f3edf7;
+  --color-ink: #231b28;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-purple: var(--color-purple);
+  --color-purple-dark: var(--color-purple-dark);
+  --color-purple-600: var(--color-purple-600);
+  --color-purple-700: var(--color-purple-700);
+  --color-purple-800: var(--color-purple-800);
+  --color-yellow: var(--color-yellow);
+  --color-red: var(--color-red);
+  --color-cream: var(--color-cream);
+  --color-cream-2: var(--color-cream-2);
+  --color-ink: var(--color-ink);
+
+  --font-sans: var(--font-poppins);
+
+  --animate-fade-up: fade-up 0.5s ease-out both;
+  --animate-pop: pop 0.22s ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Focus visibility for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--color-purple);
+  outline-offset: 2px;
+}
+
+/* Subtle dotted backdrop used behind the schedule cards */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(115, 26, 186, 0.16) 1.5px, transparent 1.5px);
+  background-size: 18px 18px;
+}
