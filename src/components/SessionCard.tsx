@@ -21,7 +21,7 @@ interface SessionCardProps {
 }
 
 const buttonBase =
-  "inline-flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-extrabold transition-all sm:flex-none";
+  "inline-flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-extrabold transition-all @lg:flex-none";
 
 export function SessionCard({
   session,
@@ -36,7 +36,7 @@ export function SessionCard({
 
   return (
     <article
-      className={`animate-fade-up relative flex flex-col overflow-hidden rounded-[32px] border border-purple/10 bg-white shadow-sm transition-shadow sm:flex-row ${
+      className={`animate-fade-up @container relative overflow-hidden rounded-[32px] border border-purple/10 bg-white shadow-sm transition-shadow ${
         cancelled ? "opacity-60" : "hover:shadow-xl hover:shadow-purple/10"
       }`}
     >
@@ -49,115 +49,120 @@ export function SessionCard({
         aria-hidden="true"
       />
 
-      {/* Foto do professor — ocupa todo o canto esquerdo. Espaço pronto para
-          receber a foto oficial via speaker.photoUrl (src/data/speakers.ts). */}
-      <div className="relative z-10 h-52 shrink-0 overflow-hidden bg-purple sm:h-auto sm:w-[38%] sm:max-w-[300px]">
-        {speaker.photoUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
-          <img
-            src={speaker.photoUrl}
-            alt={speaker.name}
-            className="h-full w-full object-cover object-top"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <PersonSilhouetteIcon className="h-20 w-20 text-white/20" />
+      {/* Layout responde à largura do próprio card (container query), não à
+          da viewport — importante porque o card fica bem mais estreito
+          quando a grade mostra 2 por linha. */}
+      <div className="relative flex flex-col @lg:flex-row">
+        {/* Foto do professor — ocupa todo o canto esquerdo. Espaço pronto
+            para receber a foto oficial via speaker.photoUrl (src/data/speakers.ts). */}
+        <div className="relative z-10 h-52 shrink-0 overflow-hidden bg-purple @lg:h-auto @lg:w-[38%] @lg:max-w-[300px]">
+          {speaker.photoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
+            <img
+              src={speaker.photoUrl}
+              alt={speaker.name}
+              className="h-full w-full object-cover object-top"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <PersonSilhouetteIcon className="h-20 w-20 text-white/20" />
+            </div>
+          )}
+        </div>
+
+        <div className="relative z-10 flex flex-1 flex-col gap-4 p-5 @lg:p-7">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full bg-cream-2 px-4 py-2 text-sm font-extrabold text-purple-dark">
+            <CalendarIcon className="h-4 w-4" />
+            {formatCardDateBadge(session.day, session.startTime)}
+          </span>
+
+          <h3 className="w-fit rounded-2xl bg-cream-2 px-5 py-4 text-xl leading-snug font-extrabold whitespace-pre-line text-purple-dark @lg:text-2xl">
+            {session.title}
+          </h3>
+
+          <div className="flex items-center gap-3">
+            <span className="h-6 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
+            <p className="text-base font-bold text-purple-dark @lg:text-lg">{speaker.name}</p>
           </div>
-        )}
-      </div>
 
-      <div className="relative z-10 flex flex-1 flex-col gap-4 p-5 sm:p-7">
-        <span className="inline-flex w-fit items-center gap-2 rounded-full bg-cream-2 px-4 py-2 text-sm font-extrabold text-purple-dark">
-          <CalendarIcon className="h-4 w-4" />
-          {formatCardDateBadge(session.day, session.startTime)}
-        </span>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-ink/60">
+            <span className="inline-flex items-center gap-1.5">
+              <ClockIcon className="h-4 w-4" />
+              {formatDuration(session.durationMinutes)}
+            </span>
+            <span className="h-4 w-px bg-ink/15" aria-hidden="true" />
+            <span
+              className={`inline-flex items-center gap-1.5 ${session.availableSeats <= 0 ? "font-semibold text-red" : ""}`}
+            >
+              <GroupIcon className="h-4 w-4" />
+              {cancelled ? "—" : availableSeatsLabel(session.availableSeats)}
+            </span>
+          </div>
 
-        <h3 className="w-fit rounded-2xl bg-cream-2 px-5 py-4 text-xl leading-snug font-extrabold whitespace-pre-line text-purple-dark sm:text-2xl">
-          {session.title}
-        </h3>
+          {expanded && (
+            <div className="animate-fade-up rounded-2xl bg-cream p-4">
+              <p className="text-sm font-bold text-purple-dark">O que vamos prosear?</p>
+              <p className="mt-1.5 text-sm text-ink/70">{session.fullDescription}</p>
+              {session.highlights.length > 0 && (
+                <>
+                  <p className="mt-3 text-sm font-bold text-purple-dark">Você vai ver:</p>
+                  <ul className="mt-1.5 space-y-1.5 text-sm text-ink/70">
+                    {session.highlights.map((h) => (
+                      <li key={h} className="flex items-start gap-2">
+                        <span
+                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-yellow"
+                          aria-hidden="true"
+                        />
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
+          )}
 
-        <div className="flex items-center gap-3">
-          <span className="h-6 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
-          <p className="text-base font-bold text-purple-dark sm:text-lg">{speaker.name}</p>
-        </div>
+          <div className="mt-auto flex flex-col gap-3 pt-2 @lg:flex-row">
+            <button
+              type="button"
+              onClick={onToggleExpand}
+              aria-expanded={expanded}
+              className={`${buttonBase} border border-purple/15 bg-white text-purple-dark hover:border-purple/40`}
+            >
+              {expanded ? "Ver menos" : "Ver detalhes"}
+              <ArrowRightIcon
+                className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
+              />
+            </button>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-ink/60">
-          <span className="inline-flex items-center gap-1.5">
-            <ClockIcon className="h-4 w-4" />
-            {formatDuration(session.durationMinutes)}
-          </span>
-          <span className="h-4 w-px bg-ink/15" aria-hidden="true" />
-          <span
-            className={`inline-flex items-center gap-1.5 ${session.availableSeats <= 0 ? "font-semibold text-red" : ""}`}
-          >
-            <GroupIcon className="h-4 w-4" />
-            {cancelled ? "—" : availableSeatsLabel(session.availableSeats)}
-          </span>
-        </div>
-
-        {expanded && (
-          <div className="animate-fade-up rounded-2xl bg-cream p-4">
-            <p className="text-sm font-bold text-purple-dark">O que vamos prosear?</p>
-            <p className="mt-1.5 text-sm text-ink/70">{session.fullDescription}</p>
-            {session.highlights.length > 0 && (
-              <>
-                <p className="mt-3 text-sm font-bold text-purple-dark">Você vai ver:</p>
-                <ul className="mt-1.5 space-y-1.5 text-sm text-ink/70">
-                  {session.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2">
-                      <span
-                        className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-yellow"
-                        aria-hidden="true"
-                      />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </>
+            {cancelled ? (
+              <span className={`${buttonBase} bg-ink/5 text-ink/50`}>Atividade cancelada</span>
+            ) : isSelected ? (
+              <button
+                type="button"
+                onClick={onToggleSelect}
+                className={`${buttonBase} bg-purple-dark text-white active:scale-95`}
+              >
+                <CheckIcon className="h-4 w-4" /> SELECIONADO
+              </button>
+            ) : soldOut ? (
+              <button
+                type="button"
+                onClick={onToggleSelect}
+                className={`${buttonBase} border-2 border-purple text-purple-dark hover:bg-cream`}
+              >
+                Entrar na lista de espera <ArrowRightIcon className="h-4 w-4" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={onToggleSelect}
+                className={`${buttonBase} bg-gradient-to-b from-yellow to-[#F5B400] text-purple-dark shadow-sm hover:brightness-105 active:scale-95`}
+              >
+                Quero participar <ArrowRightIcon className="h-4 w-4" />
+              </button>
             )}
           </div>
-        )}
-
-        <div className="mt-auto flex flex-col gap-3 pt-2 sm:flex-row">
-          <button
-            type="button"
-            onClick={onToggleExpand}
-            aria-expanded={expanded}
-            className={`${buttonBase} border border-purple/15 bg-white text-purple-dark hover:border-purple/40`}
-          >
-            {expanded ? "Ver menos" : "Ver detalhes"}
-            <ArrowRightIcon
-              className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
-            />
-          </button>
-
-          {cancelled ? (
-            <span className={`${buttonBase} bg-ink/5 text-ink/50`}>Atividade cancelada</span>
-          ) : isSelected ? (
-            <button
-              type="button"
-              onClick={onToggleSelect}
-              className={`${buttonBase} bg-purple-dark text-white active:scale-95`}
-            >
-              <CheckIcon className="h-4 w-4" /> SELECIONADO
-            </button>
-          ) : soldOut ? (
-            <button
-              type="button"
-              onClick={onToggleSelect}
-              className={`${buttonBase} border-2 border-purple text-purple-dark hover:bg-cream`}
-            >
-              Entrar na lista de espera <ArrowRightIcon className="h-4 w-4" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={onToggleSelect}
-              className={`${buttonBase} bg-gradient-to-b from-yellow to-[#F5B400] text-purple-dark shadow-sm hover:brightness-105 active:scale-95`}
-            >
-              Quero participar <ArrowRightIcon className="h-4 w-4" />
-            </button>
-          )}
         </div>
       </div>
     </article>
