@@ -2,14 +2,14 @@ import { formatHourBadge } from "@/lib/format";
 import type { DayConfig } from "@/types";
 
 /**
- * The 3 days of the event. Dates are intentionally left as `null` until the
- * organizers confirm them — the UI falls back to "Data a confirmar".
- * Fill in `date` as "YYYY-MM-DD" the moment it's official.
+ * The 3 days of the event. Dates come from the official banner ("De 8 a 10
+ * de outubro" — COBE 2026). If that ever changes, update `date` here
+ * ("YYYY-MM-DD") — every date shown across the site is derived from this file.
  */
 export const days: DayConfig[] = [
-  { id: "day1", code: "D1", label: "DIA 01", date: null },
-  { id: "day2", code: "D2", label: "DIA 02", date: null },
-  { id: "day3", code: "D3", label: "DIA 03", date: null },
+  { id: "day1", code: "D1", label: "DIA 01", date: "2026-10-08" },
+  { id: "day2", code: "D2", label: "DIA 02", date: "2026-10-09" },
+  { id: "day3", code: "D3", label: "DIA 03", date: "2026-10-10" },
 ];
 
 export function getDayById(dayId: string): DayConfig | undefined {

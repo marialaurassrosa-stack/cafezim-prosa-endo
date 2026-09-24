@@ -15,10 +15,9 @@ export const siteConfig = {
   // TODO: preencher com o número/localização do estande assim que divulgado pela organização do COBE.
   standNumber: null as string | null,
 
-  // TODO: coloque a foto do banner em /public/images/hero-bg.jpg e aponte o
-  // caminho aqui (ex.: "/images/hero-bg.jpg"). Enquanto for `null`, o Hero usa
-  // um gradiente ilustrado no lugar da foto.
-  heroImageUrl: null as string | null,
+  // Banner oficial recebido da Biodental (arte pronta, com título, botão e
+  // datas já desenhados na própria imagem).
+  heroImageUrl: "/images/hero-banner.webp" as string | null,
 
   // TODO: confirmar/atualizar estes links oficiais antes de publicar.
   links: {
