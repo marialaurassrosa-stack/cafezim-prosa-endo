@@ -4,6 +4,7 @@ import {
   ArrowRightIcon,
   CalendarIcon,
   CheckIcon,
+  ChevronDownIcon,
   ClockIcon,
   GroupIcon,
   PersonSilhouetteIcon,
@@ -54,17 +55,20 @@ export function SessionCard({
           quando a grade mostra 2 por linha. */}
       <div className="relative flex flex-col @lg:flex-row">
         {/* Foto do professor — ocupa todo o canto esquerdo. Espaço pronto
-            para receber a foto oficial via speaker.photoUrl (src/data/speakers.ts). */}
-        <div className="relative z-10 h-52 shrink-0 overflow-hidden bg-purple @lg:h-auto @lg:w-[38%] @lg:max-w-[300px]">
+            para receber a foto oficial via speaker.photoUrl (src/data/speakers.ts).
+            As fotos já vêm com cantos arredondados e fundo roxo prontos da
+            Biodental, por isso usamos object-contain sobre fundo branco em
+            vez de recortar (object-cover cortaria o próprio card da foto). */}
+        <div className="relative z-10 h-52 shrink-0 bg-white p-3 @lg:h-auto @lg:w-[38%] @lg:max-w-[300px] @lg:p-4">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
               src={speaker.photoUrl}
               alt={speaker.name}
-              className="h-full w-full object-cover object-left-top"
+              className="h-full w-full object-contain"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center">
+            <div className="flex h-full w-full items-center justify-center rounded-2xl bg-purple">
               <PersonSilhouetteIcon className="h-20 w-20 text-white/20" />
             </div>
           )}
@@ -130,8 +134,8 @@ export function SessionCard({
               className={`${buttonBase} border border-purple/15 bg-white text-purple-dark hover:border-purple/40`}
             >
               <span className="truncate">{expanded ? "Ver menos" : "Ver detalhes"}</span>
-              <ArrowRightIcon
-                className={`h-4 w-4 shrink-0 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
+              <ChevronDownIcon
+                className={`h-4 w-4 shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
               />
             </button>
 
