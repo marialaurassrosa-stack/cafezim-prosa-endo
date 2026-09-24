@@ -21,7 +21,7 @@ interface SessionCardProps {
 }
 
 const buttonBase =
-  "inline-flex min-h-13 flex-1 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-extrabold transition-all @lg:flex-none";
+  "inline-flex min-h-13 min-w-0 flex-1 items-center justify-center gap-2 rounded-full px-4 @lg:px-6 py-3.5 text-sm font-extrabold transition-all";
 
 export function SessionCard({
   session,
@@ -61,7 +61,7 @@ export function SessionCard({
             <img
               src={speaker.photoUrl}
               alt={speaker.name}
-              className="h-full w-full object-cover object-top"
+              className="h-full w-full object-cover object-left-top"
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
@@ -70,7 +70,7 @@ export function SessionCard({
           )}
         </div>
 
-        <div className="relative z-10 flex flex-1 flex-col gap-4 p-5 @lg:p-7">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-4 p-5 @lg:p-7">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-cream-2 px-4 py-2 text-sm font-extrabold text-purple-dark">
             <CalendarIcon className="h-4 w-4" />
             {formatCardDateBadge(session.day, session.startTime)}
@@ -129,21 +129,23 @@ export function SessionCard({
               aria-expanded={expanded}
               className={`${buttonBase} border border-purple/15 bg-white text-purple-dark hover:border-purple/40`}
             >
-              {expanded ? "Ver menos" : "Ver detalhes"}
+              <span className="truncate">{expanded ? "Ver menos" : "Ver detalhes"}</span>
               <ArrowRightIcon
-                className={`h-4 w-4 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
+                className={`h-4 w-4 shrink-0 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
               />
             </button>
 
             {cancelled ? (
-              <span className={`${buttonBase} bg-ink/5 text-ink/50`}>Atividade cancelada</span>
+              <span className={`${buttonBase} bg-ink/5 text-ink/50`}>
+                <span className="truncate">Atividade cancelada</span>
+              </span>
             ) : isSelected ? (
               <button
                 type="button"
                 onClick={onToggleSelect}
                 className={`${buttonBase} bg-purple-dark text-white active:scale-95`}
               >
-                <CheckIcon className="h-4 w-4" /> SELECIONADO
+                <CheckIcon className="h-4 w-4 shrink-0" /> <span className="truncate">SELECIONADO</span>
               </button>
             ) : soldOut ? (
               <button
@@ -151,7 +153,8 @@ export function SessionCard({
                 onClick={onToggleSelect}
                 className={`${buttonBase} border-2 border-purple text-purple-dark hover:bg-cream`}
               >
-                Entrar na lista de espera <ArrowRightIcon className="h-4 w-4" />
+                <span className="truncate">Entrar na lista de espera</span>
+                <ArrowRightIcon className="h-4 w-4 shrink-0" />
               </button>
             ) : (
               <button
@@ -159,7 +162,8 @@ export function SessionCard({
                 onClick={onToggleSelect}
                 className={`${buttonBase} bg-gradient-to-b from-yellow to-[#F5B400] text-purple-dark shadow-sm hover:brightness-105 active:scale-95`}
               >
-                Quero participar <ArrowRightIcon className="h-4 w-4" />
+                <span className="truncate">Quero participar</span>
+                <ArrowRightIcon className="h-4 w-4 shrink-0" />
               </button>
             )}
           </div>
