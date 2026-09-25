@@ -98,9 +98,9 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
             <button
               type="button"
               onClick={onShowDetails}
-              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full border border-purple/15 bg-white px-4 py-3 text-sm font-extrabold text-purple-dark transition-all hover:border-purple/40 @lg:px-6"
+              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full border border-purple/15 bg-white px-3 py-3 text-sm font-extrabold text-purple-dark transition-all hover:border-purple/40"
             >
-              Ver detalhes
+              <span className="truncate">Ver detalhes</span>
               <ChevronDownIcon className="h-4 w-4 shrink-0" />
             </button>
 
