@@ -20,7 +20,13 @@ export function Avatar({ name, photoUrl, size = 56, className = "" }: AvatarProp
         alt={name}
         width={size}
         height={size}
-        className={`rounded-full object-cover ${className}`}
+        loading="lazy"
+        decoding="async"
+        // Tailwind's preflight sets `img { height: auto }`, which would
+        // otherwise stretch this box to the photo's own aspect ratio instead
+        // of a perfect circle — the inline style wins over that reset.
+        style={{ width: size, height: size }}
+        className={`shrink-0 rounded-full object-cover object-top ${className}`}
       />
     );
   }

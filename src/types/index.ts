@@ -34,8 +34,10 @@ export interface Speaker {
   credentials: string;
   institution: string;
   bio: string;
-  /** Path under /public, or null to fall back to the initials placeholder. */
+  /** Main portrait — used in the session card and details modal. Path under /public, or null to fall back to the initials placeholder. */
   photoUrl: string | null;
+  /** Small round-crop portrait for avatars/thumbnails (speakers grid, modal header). Falls back to `photoUrl`, then to initials. */
+  avatarUrl: string | null;
   /** Marks entries that must be replaced with official data before launch. */
   isPlaceholder?: boolean;
 }
