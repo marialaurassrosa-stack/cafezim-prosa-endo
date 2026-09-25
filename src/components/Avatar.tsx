@@ -7,35 +7,34 @@ interface AvatarProps {
   className?: string;
 }
 
-// The speaker photos are already an art-directed cutout (a yellow shape with
-// the portrait breaking out of it, on a 364:525 canvas) — not a plain
-// rectangle meant to be re-cropped into a second circle. Sizing the box to
-// that same ratio and using object-contain shows the composition intact;
-// object-cover + rounded-full here would just clip it into a messy circle
-// with a visible ring of the photo's own white background around it.
-const PHOTO_RATIO = 525 / 364;
-
 /**
- * Shows the real photo when one is configured; otherwise a purple initials
- * placeholder, per the brief's "never fake a professor's face" rule.
+ * Shows the real photo cropped into a clean circle with a thin yellow ring,
+ * otherwise a purple initials placeholder ("never fake a professor's face").
+ *
+ * The photo is deliberately rendered a bit smaller than the outer circle
+ * (inset) so the yellow ring behind it always shows — no white ever, since
+ * this crops the same edge-to-edge purple portrait used in the card/modal,
+ * not a separate pre-shaped asset.
  */
 export function Avatar({ name, photoUrl, size = 56, className = "" }: AvatarProps) {
   if (photoUrl) {
-    const height = Math.round(size * PHOTO_RATIO);
     return (
-      // eslint-disable-next-line @next/next/no-img-element -- local/CMS photos of arbitrary aspect ratio, no next/image config needed
-      <img
-        src={photoUrl}
-        alt={name}
-        width={size}
-        height={height}
-        loading="lazy"
-        decoding="async"
-        // Tailwind's preflight sets `img { height: auto }`, which would
-        // otherwise override the height attribute above — inline style wins.
-        style={{ width: size, height }}
-        className={`shrink-0 object-contain ${className}`}
-      />
+      <div
+        className={`relative shrink-0 rounded-full bg-yellow ${className}`}
+        style={{ width: size, height: size }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- local/CMS photos of arbitrary aspect ratio, no next/image config needed */}
+        <img
+          src={photoUrl}
+          alt={name}
+          loading="lazy"
+          decoding="async"
+          // Explicit w/h (not just the inset shorthand) because Tailwind's
+          // preflight sets `img { height: auto }`, which has bitten this
+          // exact "absolutely positioned photo" pattern before.
+          className="absolute inset-[6%] h-[88%] w-[88%] rounded-full object-cover object-top"
+        />
+      </div>
     );
   }
   return (

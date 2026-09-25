@@ -34,10 +34,15 @@ export interface Speaker {
   credentials: string;
   institution: string;
   bio: string;
-  /** Main portrait — used in the session card and details modal. Path under /public, or null to fall back to the initials placeholder. */
+  /** Portrait — used everywhere (card, modal, avatar circle). Path under /public, or null to fall back to the initials placeholder. */
   photoUrl: string | null;
-  /** Small round-crop portrait for avatars/thumbnails (speakers grid, modal header). Falls back to `photoUrl`, then to initials. */
-  avatarUrl: string | null;
+  /**
+   * Vertical anchor for the portrait's visible crop. Most photos have the
+   * subject starting near the top with varying amounts of empty background
+   * below, so "top" is the safe default; a couple of outliers (framed more
+   * centrally) look better with "center" — see src/data/speakers.ts.
+   */
+  photoPosition?: "top" | "center";
   /** Marks entries that must be replaced with official data before launch. */
   isPlaceholder?: boolean;
 }

@@ -47,7 +47,7 @@ export function SpeakersSection() {
               onClick={() => setActiveSpeakerId(speaker.id)}
               className="flex flex-col items-center rounded-2xl p-2 text-center transition-colors hover:bg-white/60"
             >
-              <Avatar name={speaker.name} photoUrl={speaker.avatarUrl ?? speaker.photoUrl} size={108} />
+              <Avatar name={speaker.name} photoUrl={speaker.photoUrl} size={108} />
               <p className="mt-3 text-sm leading-snug font-bold text-balance text-ink">{speaker.name}</p>
               {sessionCount > 0 && (
                 <span className="mt-1.5 text-xs font-semibold text-purple-700">

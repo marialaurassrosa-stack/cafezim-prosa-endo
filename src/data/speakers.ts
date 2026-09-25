@@ -7,10 +7,8 @@ import type { Speaker } from "@/types";
  * uma pessoa real. Preencha esses três campos assim que a Biodental enviar
  * o currículo de cada professor.
  *
- * `photoUrl` é o retrato principal (card/modal); `avatarUrl` é o recorte
- * redondo dedicado para miniaturas (grade de professores, cabeçalho do
- * modal) — os dois vêm do mesmo pacote de fotos da Biodental, cada um já
- * enquadrado para o seu uso.
+ * A mesma foto (`photoUrl`) é usada no card, no modal e no avatar circular —
+ * um único arquivo por professor, sem versões alternativas divergentes.
  */
 export const speakers: Speaker[] = [
   {
@@ -20,7 +18,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/anarela-bernardi.png",
-    avatarUrl: "/images/speakers/anarela-bernardi-avatar.png",
   },
   {
     id: "arthur-napoleao",
@@ -29,7 +26,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/arthur-napoleao.png",
-    avatarUrl: "/images/speakers/arthur-napoleao-avatar.png",
   },
   {
     id: "danilo-shimanuko",
@@ -38,7 +34,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/danilo-shimanuko.png",
-    avatarUrl: "/images/speakers/danilo-shimanuko-avatar.png",
   },
   {
     id: "murilo-borges",
@@ -47,7 +42,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/murilo-borges.png",
-    avatarUrl: "/images/speakers/murilo-borges-avatar.png",
   },
   {
     id: "alexandre-bortoloto",
@@ -56,7 +50,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/alexandre-bortoloto.png",
-    avatarUrl: "/images/speakers/alexandre-bortoloto-avatar.png",
   },
   {
     id: "aloisio-napoleao",
@@ -65,7 +58,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/aloisio-napoleao.png",
-    avatarUrl: "/images/speakers/aloisio-napoleao-avatar.png",
   },
   {
     id: "key-fabiano-souza",
@@ -74,7 +66,10 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/key-fabiano-souza.png",
-    avatarUrl: "/images/speakers/key-fabiano-souza-avatar.png",
+    // Este retrato específico enquadra a pessoa mais ao centro do que os
+    // demais (sobra roxa em cima e embaixo, não só embaixo) — "top" deixaria
+    // uma folga grande sobre a cabeça, "center" fica mais equilibrado.
+    photoPosition: "center",
   },
   {
     id: "josiane-almeida",
@@ -83,7 +78,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/josiane-almeida.png",
-    avatarUrl: "/images/speakers/josiane-almeida-avatar.png",
   },
   {
     id: "eduardo-akisue",
@@ -92,7 +86,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/eduardo-akisue.png",
-    avatarUrl: "/images/speakers/eduardo-akisue-avatar.png",
   },
   {
     id: "bruno-bisi",
@@ -101,7 +94,6 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/bruno-bisi.png",
-    avatarUrl: "/images/speakers/bruno-bisi-avatar.png",
   },
 ];
 

@@ -36,11 +36,15 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
           da viewport — importante porque o card fica bem mais estreito
           quando a grade mostra 2 por linha. */}
       <div className="relative flex flex-col @lg:flex-row">
-        {/* Foto do professor — ocupa o canto esquerdo, com fundo roxo e o
-            detalhe amarelo já vindos prontos da própria foto (src/data/speakers.ts).
-            object-contain garante que o rosto/cabeça/ombros nunca sejam
-            cortados; qualquer sobra é preenchida pelo mesmo roxo de fundo. */}
-        <div className="relative z-10 h-56 shrink-0 bg-purple @lg:h-auto @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
+        {/* Foto do professor. object-contain garante que rosto/cabeça/ombros
+            nunca sejam cortados — a sobra vira fundo em degradê roxo. As
+            fotos variam bastante na quantidade de "folga" abaixo da pessoa
+            (algumas preenchem o quadro, outras têm bastante roxo sobrando),
+            então ancoramos no TOPO por padrão: a cabeça fica consistente
+            entre os cards, e a folga (quando existe) sobra embaixo em vez de
+            empurrar a pessoa pro meio do quadro. `max-h` trava o tamanho de
+            exibição da foto para não variar com a altura do card. */}
+        <div className="relative z-10 flex h-64 shrink-0 items-start justify-center overflow-hidden bg-gradient-to-b from-purple to-purple-dark @lg:h-auto @lg:min-h-[360px] @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
@@ -50,7 +54,9 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
               height={525}
               loading="lazy"
               decoding="async"
-              className="h-full w-full object-contain object-bottom"
+              className={`h-full w-auto max-w-full object-contain @lg:max-h-[360px] ${
+                speaker.photoPosition === "center" ? "object-center" : "object-top"
+              }`}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">

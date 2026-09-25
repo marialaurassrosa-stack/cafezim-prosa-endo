@@ -18,7 +18,7 @@ export function SpeakerModal({ speaker, sessions, onClose }: SpeakerModalProps) 
     <Modal open={Boolean(speaker)} onClose={onClose} labelledBy="speaker-modal-title" maxWidthClassName="max-w-lg">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
-          <Avatar name={speaker.name} photoUrl={speaker.avatarUrl ?? speaker.photoUrl} size={72} />
+          <Avatar name={speaker.name} photoUrl={speaker.photoUrl} size={72} />
           <div>
             <h2 id="speaker-modal-title" className="text-lg font-bold text-ink">
               {speaker.name}
