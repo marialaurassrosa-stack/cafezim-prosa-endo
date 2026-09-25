@@ -186,7 +186,7 @@ export function ScheduleExperience() {
       </section>
 
       <section id="programacao" className="px-4 py-16 sm:px-6 sm:py-20">
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-[1400px]">
           <ScheduleSection
             sessions={daySessions}
             selectedIds={selectedIdsSet}

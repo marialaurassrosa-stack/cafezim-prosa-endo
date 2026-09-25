@@ -5,7 +5,6 @@ import { MenuIcon, XIcon } from "@/components/icons";
 
 const NAV_LINKS = [
   { href: "#programacao", label: "Programação" },
-  { href: "#como-funciona", label: "Como funciona" },
   { href: "#professores", label: "Professores" },
   { href: "#cobe-2026", label: "COBE 2026" },
 ];

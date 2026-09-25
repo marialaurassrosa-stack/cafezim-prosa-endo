@@ -40,7 +40,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
             detalhe amarelo já vindos prontos da própria foto (src/data/speakers.ts).
             object-contain garante que o rosto/cabeça/ombros nunca sejam
             cortados; qualquer sobra é preenchida pelo mesmo roxo de fundo. */}
-        <div className="relative z-10 h-52 shrink-0 bg-purple @lg:h-auto @lg:w-[38%] @lg:min-w-[190px] @lg:max-w-[300px]">
+        <div className="relative z-10 h-56 shrink-0 bg-purple @lg:h-auto @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
@@ -59,7 +59,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
           )}
         </div>
 
-        <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-4 p-5 @lg:p-7">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-4 p-5 @lg:p-8">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-cream-2 px-4 py-2 text-sm font-extrabold text-purple-dark">
             <CalendarIcon className="h-4 w-4" />
             {formatCardDateBadge(session.day, session.startTime)}
