@@ -6,17 +6,15 @@ import type { SessionWithAvailability } from "@/types";
 interface ScheduleSectionProps {
   sessions: SessionWithAvailability[];
   selectedIds: Set<string>;
-  expandedIds: Set<string>;
-  onToggleExpand: (sessionId: string) => void;
   onToggleSelect: (session: SessionWithAvailability) => void;
+  onShowDetails: (session: SessionWithAvailability) => void;
 }
 
 export function ScheduleSection({
   sessions,
   selectedIds,
-  expandedIds,
-  onToggleExpand,
   onToggleSelect,
+  onShowDetails,
 }: ScheduleSectionProps) {
   if (sessions.length === 0) {
     return (
@@ -27,15 +25,16 @@ export function ScheduleSection({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+    // items-start impede que um card mais curto "estique" até a altura do
+    // maior da linha — cada card mantém sua própria altura (height: auto).
+    <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
       {sessions.map((session) => (
         <SessionCard
           key={session.id}
           session={session}
           isSelected={selectedIds.has(session.id)}
-          expanded={expandedIds.has(session.id)}
-          onToggleExpand={() => onToggleExpand(session.id)}
           onToggleSelect={() => onToggleSelect(session)}
+          onShowDetails={() => onShowDetails(session)}
         />
       ))}
     </div>

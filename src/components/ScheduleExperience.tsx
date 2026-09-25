@@ -7,6 +7,7 @@ import { RegistrationForm } from "@/components/RegistrationForm";
 import { ScheduleDrawer } from "@/components/ScheduleDrawer";
 import { ScheduleSection } from "@/components/ScheduleSection";
 import { SelectedScheduleBar } from "@/components/SelectedScheduleBar";
+import { SessionDetailsModal } from "@/components/SessionDetailsModal";
 import { SuccessModal } from "@/components/SuccessModal";
 import { sessionsConflict } from "@/lib/format";
 import { trackEvent } from "@/lib/analytics";
@@ -33,7 +34,7 @@ export function ScheduleExperience() {
   const [schedule, setSchedule] = useState<ScheduleResponse | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [activeDayId, setActiveDayId] = useState<DayId>("day1");
-  const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
+  const [detailsSession, setDetailsSession] = useState<SessionWithAvailability | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [conflict, setConflict] = useState<ConflictState | null>(null);
@@ -87,23 +88,12 @@ export function ScheduleExperience() {
     trackEvent("select_event_day", { day: dayId });
   }
 
-  function handleToggleExpand(sessionId: string) {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(sessionId)) {
-        next.delete(sessionId);
-      } else {
-        next.add(sessionId);
-        const session = schedule?.sessions.find((s) => s.id === sessionId);
-        if (session) {
-          trackEvent("view_session", {
-            session_id: session.id,
-            session_title: session.title.replace(/\n/g, " "),
-            session_day: session.dayId,
-          });
-        }
-      }
-      return next;
+  function handleShowDetails(session: SessionWithAvailability) {
+    setDetailsSession(session);
+    trackEvent("view_session", {
+      session_id: session.id,
+      session_title: session.title.replace(/\n/g, " "),
+      session_day: session.dayId,
     });
   }
 
@@ -200,9 +190,8 @@ export function ScheduleExperience() {
           <ScheduleSection
             sessions={daySessions}
             selectedIds={selectedIdsSet}
-            expandedIds={expandedIds}
-            onToggleExpand={handleToggleExpand}
             onToggleSelect={handleToggleSelect}
+            onShowDetails={handleShowDetails}
           />
         </div>
       </section>
@@ -245,6 +234,13 @@ export function ScheduleExperience() {
         conflictingSessions={conflict?.conflicting ?? []}
         onKeepCurrent={handleConflictKeep}
         onSwitch={handleConflictSwitch}
+      />
+
+      <SessionDetailsModal
+        session={detailsSession}
+        isSelected={detailsSession ? selectedIdsSet.has(detailsSession.id) : false}
+        onToggleSelect={() => detailsSession && handleToggleSelect(detailsSession)}
+        onClose={() => setDetailsSession(null)}
       />
     </>
   );

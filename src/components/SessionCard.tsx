@@ -1,14 +1,7 @@
 "use client";
 
-import {
-  ArrowRightIcon,
-  CalendarIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ClockIcon,
-  GroupIcon,
-  PersonSilhouetteIcon,
-} from "@/components/icons";
+import { SessionActionButton } from "@/components/SessionActionButton";
+import { CalendarIcon, ChevronDownIcon, ClockIcon, GroupIcon, PersonSilhouetteIcon } from "@/components/icons";
 import { formatCardDateBadge } from "@/data/days";
 import { availableSeatsLabel, formatDuration } from "@/lib/format";
 import type { SessionWithAvailability } from "@/types";
@@ -16,23 +9,12 @@ import type { SessionWithAvailability } from "@/types";
 interface SessionCardProps {
   session: SessionWithAvailability;
   isSelected: boolean;
-  expanded: boolean;
-  onToggleExpand: () => void;
   onToggleSelect: () => void;
+  onShowDetails: () => void;
 }
 
-const buttonBase =
-  "inline-flex min-h-13 min-w-0 flex-1 items-center justify-center gap-2 rounded-full px-4 @lg:px-6 py-3.5 text-sm font-extrabold transition-all";
-
-export function SessionCard({
-  session,
-  isSelected,
-  expanded,
-  onToggleExpand,
-  onToggleSelect,
-}: SessionCardProps) {
+export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails }: SessionCardProps) {
   const cancelled = session.status === "cancelled";
-  const soldOut = !cancelled && !isSelected && session.effectiveStatus === "sold_out";
   const { speaker } = session;
 
   return (
@@ -54,21 +36,24 @@ export function SessionCard({
           da viewport — importante porque o card fica bem mais estreito
           quando a grade mostra 2 por linha. */}
       <div className="relative flex flex-col @lg:flex-row">
-        {/* Foto do professor — ocupa todo o canto esquerdo. Espaço pronto
-            para receber a foto oficial via speaker.photoUrl (src/data/speakers.ts).
-            As fotos já vêm com cantos arredondados e fundo roxo prontos da
-            Biodental, por isso usamos object-contain sobre fundo branco em
-            vez de recortar (object-cover cortaria o próprio card da foto). */}
-        <div className="relative z-10 h-52 shrink-0 bg-white p-3 @lg:h-auto @lg:w-[38%] @lg:max-w-[300px] @lg:p-4">
+        {/* Foto do professor — ocupa o canto esquerdo, com fundo roxo e o
+            detalhe amarelo já vindos prontos da própria foto (src/data/speakers.ts).
+            object-contain garante que o rosto/cabeça/ombros nunca sejam
+            cortados; qualquer sobra é preenchida pelo mesmo roxo de fundo. */}
+        <div className="relative z-10 h-52 shrink-0 bg-purple @lg:h-auto @lg:w-[38%] @lg:min-w-[190px] @lg:max-w-[300px]">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
               src={speaker.photoUrl}
               alt={speaker.name}
-              className="h-full w-full object-contain"
+              width={364}
+              height={525}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-contain object-bottom"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center rounded-2xl bg-purple">
+            <div className="flex h-full w-full items-center justify-center">
               <PersonSilhouetteIcon className="h-20 w-20 text-white/20" />
             </div>
           )}
@@ -103,73 +88,17 @@ export function SessionCard({
             </span>
           </div>
 
-          {expanded && (
-            <div className="animate-fade-up rounded-2xl bg-cream p-4">
-              <p className="text-sm font-bold text-purple-dark">O que vamos prosear?</p>
-              <p className="mt-1.5 text-sm text-ink/70">{session.fullDescription}</p>
-              {session.highlights.length > 0 && (
-                <>
-                  <p className="mt-3 text-sm font-bold text-purple-dark">Você vai ver:</p>
-                  <ul className="mt-1.5 space-y-1.5 text-sm text-ink/70">
-                    {session.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2">
-                        <span
-                          className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-yellow"
-                          aria-hidden="true"
-                        />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </div>
-          )}
-
           <div className="mt-auto flex flex-col gap-3 pt-2 @lg:flex-row">
             <button
               type="button"
-              onClick={onToggleExpand}
-              aria-expanded={expanded}
-              className={`${buttonBase} border border-purple/15 bg-white text-purple-dark hover:border-purple/40`}
+              onClick={onShowDetails}
+              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full border border-purple/15 bg-white px-4 py-3 text-sm font-extrabold text-purple-dark transition-all hover:border-purple/40 @lg:px-6"
             >
-              <span className="truncate">{expanded ? "Ver menos" : "Ver detalhes"}</span>
-              <ChevronDownIcon
-                className={`h-4 w-4 shrink-0 transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
-              />
+              Ver detalhes
+              <ChevronDownIcon className="h-4 w-4 shrink-0" />
             </button>
 
-            {cancelled ? (
-              <span className={`${buttonBase} bg-ink/5 text-ink/50`}>
-                <span className="truncate">Atividade cancelada</span>
-              </span>
-            ) : isSelected ? (
-              <button
-                type="button"
-                onClick={onToggleSelect}
-                className={`${buttonBase} bg-purple-dark text-white active:scale-95`}
-              >
-                <CheckIcon className="h-4 w-4 shrink-0" /> <span className="truncate">SELECIONADO</span>
-              </button>
-            ) : soldOut ? (
-              <button
-                type="button"
-                onClick={onToggleSelect}
-                className={`${buttonBase} border-2 border-purple text-purple-dark hover:bg-cream`}
-              >
-                <span className="truncate">Entrar na lista de espera</span>
-                <ArrowRightIcon className="h-4 w-4 shrink-0" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={onToggleSelect}
-                className={`${buttonBase} bg-gradient-to-b from-yellow to-[#F5B400] text-purple-dark shadow-sm hover:brightness-105 active:scale-95`}
-              >
-                <span className="truncate">Quero participar</span>
-                <ArrowRightIcon className="h-4 w-4 shrink-0" />
-              </button>
-            )}
+            <SessionActionButton session={session} isSelected={isSelected} onToggleSelect={onToggleSelect} />
           </div>
         </div>
       </div>
