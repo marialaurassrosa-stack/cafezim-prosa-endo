@@ -11,7 +11,7 @@ import { siteConfig } from "@/config/site";
 export function Hero() {
   return (
     <section id="top" className="relative bg-purple-dark text-white">
-      <div className="relative aspect-[2/1] w-full overflow-hidden">
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
         {siteConfig.heroImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- banner em tela cheia, sem next/image
           <img
@@ -29,10 +29,16 @@ export function Hero() {
           />
         )}
 
+        {/* Posição calibrada por pixel no arquivo atual do banner (botão
+            "Ver programação e inscrever-se" desenhado na própria arte) —
+            o container usa aspect-[4/3] pra bater exatamente com a
+            proporção nativa da imagem (1448x1086), então essas frações não
+            deslocam em nenhum tamanho de tela. Recalibrar se o banner for
+            trocado por outra arte com o botão em outro lugar. */}
         <a
           href="#seletor-de-dias"
           aria-label="Ver programação"
-          className="absolute top-[78%] left-[33%] h-[11%] w-[34%] rounded-full transition-colors hover:bg-white/10"
+          className="absolute top-[71%] left-[4%] h-[7%] w-[44%] rounded-full transition-colors hover:bg-white/10"
         />
       </div>
 

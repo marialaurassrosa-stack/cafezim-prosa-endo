@@ -20,6 +20,15 @@ export function StandSection() {
         {!siteConfig.standNumber && (
           <p className="text-xs text-ink/45">Número do estande a confirmar.</p>
         )}
+
+        <div className="mt-2 w-full max-w-xs overflow-hidden rounded-2xl shadow-sm">
+          {/* eslint-disable-next-line @next/next/no-img-element -- arte de divulgação, sem next/image */}
+          <img
+            src="/images/stand-map.webp"
+            alt="Mapa de acesso: entrada até o stand da Biodental no COBE 2026"
+            className="h-full w-full object-cover"
+          />
+        </div>
       </div>
     </section>
   );

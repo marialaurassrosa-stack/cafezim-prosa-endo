@@ -30,7 +30,7 @@ export const sessions: SessionDef[] = [
       "Tomada de decisão sob pressão",
       "Casos reais trazidos pelo grupo",
     ],
-    capacity: 8,
+    capacity: 5,
     status: "active",
   },
   {
@@ -50,7 +50,7 @@ export const sessions: SessionDef[] = [
       "Alternativas de tratamento",
       "Perguntas e respostas abertas",
     ],
-    capacity: 8,
+    capacity: 5,
     status: "active",
   },
   {
@@ -70,7 +70,7 @@ export const sessions: SessionDef[] = [
       "Ajustes de potência",
       "Erros comuns e como evitá-los",
     ],
-    capacity: 10,
+    capacity: 5,
     status: "active",
   },
   {
@@ -90,7 +90,7 @@ export const sessions: SessionDef[] = [
       "Indicações e contraindicações",
       "Prática em modelo",
     ],
-    capacity: 6,
+    capacity: 5,
     status: "active",
   },
 
@@ -112,7 +112,7 @@ export const sessions: SessionDef[] = [
       "Métodos de ativação",
       "Protocolos para casos infectados",
     ],
-    capacity: 8,
+    capacity: 5,
     status: "active",
   },
   {
@@ -132,7 +132,7 @@ export const sessions: SessionDef[] = [
       "Casos limítrofes",
       "Conversa aberta com o professor",
     ],
-    capacity: 10,
+    capacity: 5,
     status: "active",
   },
   {
@@ -152,7 +152,7 @@ export const sessions: SessionDef[] = [
       "Prática em bloco de treino",
       "Dicas para evitar fraturas",
     ],
-    capacity: 6,
+    capacity: 5,
     status: "active",
   },
 
@@ -174,7 +174,7 @@ export const sessions: SessionDef[] = [
       "Testes clínicos úteis",
       "Quando encaminhar",
     ],
-    capacity: 8,
+    capacity: 5,
     status: "active",
   },
   {
@@ -194,7 +194,7 @@ export const sessions: SessionDef[] = [
       "Prática em modelo",
       "Perguntas livres",
     ],
-    capacity: 6,
+    capacity: 5,
     status: "active",
   },
   {
@@ -214,9 +214,7 @@ export const sessions: SessionDef[] = [
       "Reimplante e contenção",
       "Acompanhamento pós-trauma",
     ],
-    // Capacidade baixa de propósito neste exemplo, para demonstrar o
-    // fluxo de "vagas esgotadas" / lista de espera.
-    capacity: 1,
+    capacity: 5,
     status: "active",
   },
 ];
