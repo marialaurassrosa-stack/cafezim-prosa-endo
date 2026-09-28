@@ -5,10 +5,12 @@ interface AvatarProps {
   photoUrl: string | null;
   size?: number;
   className?: string;
-  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. */
+  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. Ignored when `avatarUrl` is set. */
   originY?: number;
-  /** Same crop tuning as the card photo (speaker.photoZoom). */
+  /** Same crop tuning as the card photo (speaker.photoZoom). Ignored when `avatarUrl` is set. */
   zoom?: number;
+  /** Ready-made circular badge (yellow ring baked in by design) — takes priority over cropping `photoUrl`. */
+  avatarUrl?: string | null;
 }
 
 /**
@@ -20,7 +22,22 @@ interface AvatarProps {
  * this crops the same edge-to-edge purple portrait used in the card/modal,
  * not a separate pre-shaped asset.
  */
-export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1 }: AvatarProps) {
+export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1, avatarUrl }: AvatarProps) {
+  if (avatarUrl) {
+    return (
+      <div className={`relative shrink-0 ${className}`} style={{ width: size, height: size }}>
+        {/* Já vem pronto (foto + anel amarelo + fundo transparente) — só encaixar, sem recorte/zoom próprio. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- badge pronto, tamanho fixo por professor */}
+        <img
+          src={avatarUrl}
+          alt={name}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-contain"
+        />
+      </div>
+    );
+  }
   if (photoUrl) {
     return (
       <div

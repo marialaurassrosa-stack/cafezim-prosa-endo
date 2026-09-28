@@ -34,8 +34,15 @@ export interface Speaker {
   credentials: string;
   institution: string;
   bio: string;
-  /** Portrait — used everywhere (card, modal, avatar circle). Path under /public, or null to fall back to the initials placeholder. */
+  /** Portrait — used in the card and in the speaker modal. Path under /public, or null to fall back to the initials placeholder. */
   photoUrl: string | null;
+  /**
+   * Ready-made circular badge (photo already cropped into a circle with the
+   * yellow ring baked in by design) — used only in the "Quem vai sentar para
+   * prosear?" grid. Falls back to cropping `photoUrl` into a circle (see
+   * Avatar.tsx) when not set.
+   */
+  avatarUrl?: string | null;
   /**
    * Vertical crop anchor, 0 (top) to 100 (bottom), as a % of the source
    * photo's height. Used as both `object-position` and `transform-origin`.
