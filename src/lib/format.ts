@@ -55,3 +55,10 @@ export function availableSeatsLabel(availableSeats: number): string {
   if (availableSeats === 1) return "Resta 1 lugar nesta roda";
   return `${availableSeats} vagas disponíveis`;
 }
+
+/** Short form for tight spaces (mobile card badge): "8 vagas" · "1 vaga" · "Esgotado". */
+export function availableSeatsShortLabel(availableSeats: number): string {
+  if (availableSeats <= 0) return "Esgotado";
+  if (availableSeats === 1) return "1 vaga";
+  return `${availableSeats} vagas`;
+}

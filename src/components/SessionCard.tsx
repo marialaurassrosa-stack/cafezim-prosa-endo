@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import { SessionActionButton } from "@/components/SessionActionButton";
 import { CalendarIcon, ChevronDownIcon, ClockIcon, GroupIcon, PersonSilhouetteIcon } from "@/components/icons";
 import { formatCardDateBadge } from "@/data/days";
-import { availableSeatsLabel, formatDuration } from "@/lib/format";
+import { availableSeatsLabel, availableSeatsShortLabel, formatDuration } from "@/lib/format";
 import type { SessionWithAvailability } from "@/types";
 
 interface SessionCardProps {
@@ -17,6 +17,10 @@ interface SessionCardProps {
 export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails }: SessionCardProps) {
   const cancelled = session.status === "cancelled";
   const { speaker } = session;
+  const photoStyle = {
+    "--photo-origin-y": `${speaker.photoOriginY ?? 0}%`,
+    "--photo-zoom": speaker.photoZoom ?? 1,
+  } as CSSProperties;
 
   return (
     <article
@@ -33,25 +37,81 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
         aria-hidden="true"
       />
 
-      {/* Foto ao lado do conteúdo em qualquer largura — mesmo layout do
-          mobile ao desktop, só a proporção da coluna da foto cresce quando
-          o card fica mais largo (container query, não viewport, porque o
-          card fica bem mais estreito quando a grade mostra 2 por linha). */}
-      <div className="relative flex flex-row items-start @lg:items-stretch">
-        {/* .speaker-photo (globals.css) sempre em cover + zoom/ancoragem
-            próprios de cada foto — como a coluna da foto é sempre estreita
-            (retrato), o corte nunca cai em cima da cabeça, só nas laterais.
-            Os retratos-fonte com "enquadramento" mais afastado (mais fundo
-            roxo sobrando) usam um zoom próprio pra aparentar o mesmo tamanho
-            dos demais (photoZoom/photoOriginY, speakers.ts).
-            Abaixo de @lg a altura é fixa (não acompanha o conteúdo) — o
-            texto do card no mobile é bem mais alto que no desktop (fonte
-            maior, botões empilhados), e deixar a foto esticar até essa
-            altura toda deixaria a coluna finíssima e cortaria demais das
-            laterais; a partir de @lg (conteúdo mais compacto, ver
-            SessionActionButton) ela volta a acompanhar a altura do card
-            como antes. */}
-        <div className="relative z-10 flex h-[220px] w-[38%] min-w-[110px] max-w-[170px] shrink-0 items-start justify-center overflow-hidden bg-gradient-to-b from-purple to-purple-dark @lg:h-auto @lg:min-h-[360px] @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
+      {/* ===== Mobile (abaixo de @lg): versão compacta, layout próprio —
+          card mais baixo, tema em destaque, foto pequena ao lado do nome.
+          Independente do bloco desktop abaixo (nada aqui é compartilhado
+          por classe condicional) para nunca arriscar mudar o desktop. */}
+      <div className="relative z-10 flex flex-col gap-3 p-4 @lg:hidden">
+        <div className="flex items-center justify-between gap-2">
+          <span className="inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1 text-xs font-extrabold text-purple-dark">
+            <CalendarIcon className="h-3.5 w-3.5" />
+            {formatCardDateBadge(session.day, session.startTime)}
+          </span>
+          <span
+            className={`inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1 text-xs font-bold ${
+              !cancelled && session.availableSeats <= 0 ? "text-red" : "text-ink/60"
+            }`}
+          >
+            <GroupIcon className="h-3.5 w-3.5" />
+            {cancelled ? "—" : availableSeatsShortLabel(session.availableSeats)}
+          </span>
+        </div>
+
+        <h3 className="text-lg leading-snug font-extrabold whitespace-pre-line text-purple-dark">
+          {session.title}
+        </h3>
+
+        <div className="flex items-center gap-3">
+          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-gradient-to-b from-purple to-purple-dark">
+            {speaker.photoUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
+              <img
+                src={speaker.photoUrl}
+                alt={speaker.name}
+                width={364}
+                height={525}
+                loading="lazy"
+                decoding="async"
+                className="speaker-photo h-full w-full"
+                style={photoStyle}
+              />
+            ) : (
+              <div className="flex h-full w-full items-center justify-center">
+                <PersonSilhouetteIcon className="h-7 w-7 text-white/20" />
+              </div>
+            )}
+          </div>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="h-5 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
+            <p className="min-w-0 text-sm leading-snug font-bold text-purple-dark">{speaker.name}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1.5 text-xs font-medium text-ink/60">
+          <ClockIcon className="h-3.5 w-3.5" />
+          {formatDuration(session.durationMinutes)}
+        </div>
+
+        <div className="flex items-center justify-between gap-3 pt-1">
+          <button
+            type="button"
+            onClick={onShowDetails}
+            className="inline-flex items-center gap-1 py-2 text-sm font-bold text-purple-dark"
+          >
+            Ver detalhes
+            <ChevronDownIcon className="h-4 w-4" />
+          </button>
+
+          <SessionActionButton session={session} isSelected={isSelected} onToggleSelect={onToggleSelect} size="compact" />
+        </div>
+      </div>
+
+      {/* ===== Desktop (@lg e acima): layout já aprovado, inalterado —
+          mesma estrutura/classes de antes da versão compacta do mobile. */}
+      <div className="relative hidden @lg:flex @lg:flex-row">
+        {/* .speaker-photo (globals.css) em cover + zoom/ancoragem próprios de
+            cada foto (photoZoom/photoOriginY, ver speakers.ts). */}
+        <div className="relative z-10 flex h-auto min-h-[360px] w-[39%] min-w-[230px] max-w-[320px] shrink-0 items-start justify-center overflow-hidden bg-gradient-to-b from-purple to-purple-dark">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
@@ -62,12 +122,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
               loading="lazy"
               decoding="async"
               className="speaker-photo h-full w-full"
-              style={
-                {
-                  "--photo-origin-y": `${speaker.photoOriginY ?? 0}%`,
-                  "--photo-zoom": speaker.photoZoom ?? 1,
-                } as CSSProperties
-              }
+              style={photoStyle}
             />
           ) : (
             <div className="flex h-full w-full items-center justify-center">
@@ -76,19 +131,19 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
           )}
         </div>
 
-        <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-4 p-5 @lg:p-8">
+        <div className="relative z-10 flex min-w-0 flex-1 flex-col gap-4 p-8">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-cream-2 px-4 py-2 text-sm font-extrabold text-purple-dark">
             <CalendarIcon className="h-4 w-4" />
             {formatCardDateBadge(session.day, session.startTime)}
           </span>
 
-          <h3 className="w-fit rounded-2xl bg-cream-2 px-5 py-4 text-xl leading-snug font-extrabold whitespace-pre-line text-purple-dark @lg:text-2xl">
+          <h3 className="w-fit rounded-2xl bg-cream-2 px-5 py-4 text-2xl leading-snug font-extrabold whitespace-pre-line text-purple-dark">
             {session.title}
           </h3>
 
           <div className="flex items-center gap-3">
             <span className="h-6 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
-            <p className="text-base font-bold text-purple-dark @lg:text-lg">{speaker.name}</p>
+            <p className="text-lg font-bold text-purple-dark">{speaker.name}</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-ink/60">
@@ -105,7 +160,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
             </span>
           </div>
 
-          <div className="mt-auto flex flex-col gap-3 pt-2 @lg:flex-row">
+          <div className="mt-auto flex flex-row gap-3 pt-2">
             <button
               type="button"
               onClick={onShowDetails}
