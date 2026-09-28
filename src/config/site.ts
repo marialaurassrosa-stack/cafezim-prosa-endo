@@ -14,8 +14,10 @@ export const siteConfig = {
   standName: "Stand Biodental",
 
   // Banner oficial recebido da Biodental (arte pronta, com título, botão e
-  // datas já desenhados na própria imagem).
-  heroImageUrl: "/images/hero-banner.webp" as string | null,
+  // datas já desenhados na própria imagem) — uma arte retangular pro desktop
+  // e uma quadrada pro mobile, trocadas via breakpoint (ver Hero.tsx).
+  heroImageUrlDesktop: "/images/hero-banner-desktop.webp" as string | null,
+  heroImageUrlMobile: "/images/hero-banner-mobile.webp" as string | null,
 
   // TODO: confirmar/atualizar estes links oficiais antes de publicar.
   links: {
