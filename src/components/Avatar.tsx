@@ -5,6 +5,10 @@ interface AvatarProps {
   photoUrl: string | null;
   size?: number;
   className?: string;
+  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. */
+  originY?: number;
+  /** Same crop tuning as the card photo (speaker.photoZoom). */
+  zoom?: number;
 }
 
 /**
@@ -16,11 +20,11 @@ interface AvatarProps {
  * this crops the same edge-to-edge purple portrait used in the card/modal,
  * not a separate pre-shaped asset.
  */
-export function Avatar({ name, photoUrl, size = 56, className = "" }: AvatarProps) {
+export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1 }: AvatarProps) {
   if (photoUrl) {
     return (
       <div
-        className={`relative shrink-0 rounded-full bg-yellow ${className}`}
+        className={`relative shrink-0 overflow-hidden rounded-full bg-yellow ${className}`}
         style={{ width: size, height: size }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- local/CMS photos of arbitrary aspect ratio, no next/image config needed */}
@@ -32,7 +36,12 @@ export function Avatar({ name, photoUrl, size = 56, className = "" }: AvatarProp
           // Explicit w/h (not just the inset shorthand) because Tailwind's
           // preflight sets `img { height: auto }`, which has bitten this
           // exact "absolutely positioned photo" pattern before.
-          className="absolute inset-[6%] h-[88%] w-[88%] rounded-full object-cover object-top"
+          className="absolute inset-[6%] h-[88%] w-[88%] rounded-full object-cover"
+          style={{
+            objectPosition: `50% ${originY}%`,
+            transform: zoom !== 1 ? `scale(${zoom})` : undefined,
+            transformOrigin: `50% ${originY}%`,
+          }}
         />
       </div>
     );

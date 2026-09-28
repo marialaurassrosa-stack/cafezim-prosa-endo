@@ -50,6 +50,11 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/alexandre-bortoloto.png",
+    // Retrato tem bem mais folga roxa acima da cabeça que a média dos outros
+    // — sem o zoom, a pessoa aparece visivelmente menor/mais distante que
+    // nos demais cards.
+    photoOriginY: 12,
+    photoZoom: 1.22,
   },
   {
     id: "aloisio-napoleao",
@@ -66,10 +71,11 @@ export const speakers: Speaker[] = [
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
     photoUrl: "/images/speakers/key-fabiano-souza.png",
-    // Este retrato específico enquadra a pessoa mais ao centro do que os
-    // demais (sobra roxa em cima e embaixo, não só embaixo) — "top" deixaria
-    // uma folga grande sobre a cabeça, "center" fica mais equilibrado.
-    photoPosition: "center",
+    // Mesmo caso do Alexandre: enquadramento mais afastado, com folga roxa
+    // sobrando acima da cabeça — zoom traz a pessoa para o mesmo tamanho
+    // aparente dos outros professores.
+    photoOriginY: 10,
+    photoZoom: 1.2,
   },
   {
     id: "josiane-almeida",

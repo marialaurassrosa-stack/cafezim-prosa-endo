@@ -37,12 +37,21 @@ export interface Speaker {
   /** Portrait — used everywhere (card, modal, avatar circle). Path under /public, or null to fall back to the initials placeholder. */
   photoUrl: string | null;
   /**
-   * Vertical anchor for the portrait's visible crop. Most photos have the
-   * subject starting near the top with varying amounts of empty background
-   * below, so "top" is the safe default; a couple of outliers (framed more
-   * centrally) look better with "center" — see src/data/speakers.ts.
+   * Vertical crop anchor, 0 (top) to 100 (bottom), as a % of the source
+   * photo's height. Used as both `object-position` and `transform-origin`.
+   * Defaults to 0 (top) — most portraits have the head starting right near
+   * the top edge, so anchoring there keeps heads level across cards.
    */
-  photoPosition?: "top" | "center";
+  photoOriginY?: number;
+  /**
+   * Extra zoom (CSS `scale()`) applied on top of the cover-crop, anchored at
+   * `photoOriginY`. The source portraits weren't shot to a consistent
+   * "headroom" — some frame the face tight, others leave a lot of empty
+   * background above/around the subject — so a couple of outliers need a
+   * bit of zoom to read at the same apparent size as the rest. Defaults to 1
+   * (no zoom) — see src/data/speakers.ts for the tuned values.
+   */
+  photoZoom?: number;
   /** Marks entries that must be replaced with official data before launch. */
   isPlaceholder?: boolean;
 }
