@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import { SessionActionButton } from "@/components/SessionActionButton";
 import { CalendarIcon, ChevronDownIcon, ClockIcon, GroupIcon, PersonSilhouetteIcon } from "@/components/icons";
 import { formatCardDateBadge } from "@/data/days";
-import { availableSeatsLabel, availableSeatsShortLabel, formatDuration } from "@/lib/format";
+import { availableSeatsLabel, availableSeatsShortLabel } from "@/lib/format";
 import type { SessionWithAvailability } from "@/types";
 
 interface SessionCardProps {
@@ -90,7 +90,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
             </div>
             <div className="flex items-center gap-1.5 pl-3 text-xs font-medium text-ink/60">
               <ClockIcon className="h-3.5 w-3.5" />
-              {formatDuration(session.durationMinutes)}
+              No máximo 40min
             </div>
           </div>
         </div>
@@ -152,7 +152,7 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium text-ink/60">
             <span className="inline-flex items-center gap-1.5">
               <ClockIcon className="h-4 w-4" />
-              {formatDuration(session.durationMinutes)}
+              No máximo 40min
             </span>
             <span className="h-4 w-px bg-ink/15" aria-hidden="true" />
             <span
