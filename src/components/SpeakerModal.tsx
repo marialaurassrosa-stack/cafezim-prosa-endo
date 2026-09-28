@@ -21,6 +21,7 @@ export function SpeakerModal({ speaker, sessions, onClose }: SpeakerModalProps) 
           <Avatar
             name={speaker.name}
             photoUrl={speaker.photoUrl}
+            avatarUrl={speaker.avatarUrl}
             size={72}
             originY={speaker.photoOriginY}
             zoom={speaker.photoZoom}

@@ -5,20 +5,40 @@ interface AvatarProps {
   photoUrl: string | null;
   size?: number;
   className?: string;
-  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. */
+  /** Same crop tuning as the card photo (speaker.photoOriginY). Ignored when `avatarUrl` is set. */
   originY?: number;
-  /** Same crop tuning as the card photo (speaker.photoZoom). */
+  /** Same crop tuning as the card photo (speaker.photoZoom). Ignored when `avatarUrl` is set. */
   zoom?: number;
+  /** Ready-made circular badge — takes priority over cropping `photoUrl`, and is what's shown everywhere the avatar appears (grid and modal) so the same image is never reformatted between the two. */
+  avatarUrl?: string | null;
 }
 
 /**
- * Shows the exact same portrait used in the card, cropped into a plain
- * circle (same photoUrl + zoom/origin, no separate asset and no ring/border
- * — "mesmo enquadramento e identidade visual em todos os pontos da
- * página"), otherwise a purple initials placeholder ("never fake a
- * professor's face").
+ * Shows the professor's avatar: the ready-made circular badge (`avatarUrl`)
+ * when the speaker has one — same asset in the "Quem vai sentar para
+ * prosear?" grid and in the speaker modal, so clicking never changes the
+ * image's format — otherwise falls back to cropping `photoUrl` (the card
+ * portrait) into a plain circle, or a purple initials placeholder ("never
+ * fake a professor's face").
  */
-export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1 }: AvatarProps) {
+export function Avatar({
+  name,
+  photoUrl,
+  size = 56,
+  className = "",
+  originY = 0,
+  zoom = 1,
+  avatarUrl,
+}: AvatarProps) {
+  if (avatarUrl) {
+    return (
+      <div className={`relative shrink-0 ${className}`} style={{ width: size, height: size }}>
+        {/* Já vem pronto (foto recortada em círculo) — só encaixar, sem recorte/zoom próprio. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- badge pronto, tamanho fixo por professor */}
+        <img src={avatarUrl} alt={name} loading="lazy" decoding="async" className="h-full w-full object-contain" />
+      </div>
+    );
+  }
   if (photoUrl) {
     return (
       <div
