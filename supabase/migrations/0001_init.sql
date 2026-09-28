@@ -13,8 +13,11 @@ create table if not exists participants (
   phone text not null,
   cro text,
   state text,
-  profile_type text not null check (
-    profile_type in ('dentista', 'endodontista', 'pos_graduando', 'graduando', 'outro')
+  -- Nulo por padrão: o formulário público só pede nome/telefone/e-mail hoje
+  -- (ver RegistrationForm.tsx) — este campo fica pra registros antigos ou
+  -- se a Biodental voltar a coletar o perfil no futuro.
+  profile_type text check (
+    profile_type is null or profile_type in ('dentista', 'endodontista', 'pos_graduando', 'graduando', 'outro')
   ),
   created_at timestamptz not null default now(),
   constraint participants_email_unique unique (email)
@@ -91,11 +94,14 @@ begin
   insert into participants (name, email, phone, cro, state, profile_type)
   values (p_name, p_email, p_phone, p_cro, p_state, p_profile_type)
   on conflict (email) do update
+    -- coalesce: o formulário atual não envia cro/state/profile_type (sempre
+    -- null), então uma reinscrição não deve apagar um valor antigo que
+    -- porventura já exista pra esse e-mail.
     set name = excluded.name,
         phone = excluded.phone,
-        cro = excluded.cro,
-        state = excluded.state,
-        profile_type = excluded.profile_type
+        cro = coalesce(excluded.cro, participants.cro),
+        state = coalesce(excluded.state, participants.state),
+        profile_type = coalesce(excluded.profile_type, participants.profile_type)
   returning id into v_participant_id;
 
   foreach v_session_id in array p_session_ids loop
