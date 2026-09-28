@@ -10,8 +10,11 @@ import { siteConfig } from "@/config/site";
  */
 export function Hero() {
   return (
-    <section id="top" className="relative bg-purple-dark text-white">
-      <div className="relative aspect-[4/3] w-full overflow-hidden">
+    <section id="top" className="relative bg-purple-dark text-white lg:bg-white lg:px-6 lg:pt-6">
+      {/* No desktop (lg+) o banner ganha margem lateral/superior e cantos
+          arredondados, em vez de ocupar a tela toda; no mobile continua
+          edge-to-edge como antes. */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden lg:mx-auto lg:max-w-6xl lg:rounded-[32px]">
         {siteConfig.heroImageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element -- banner em tela cheia, sem next/image
           <img
