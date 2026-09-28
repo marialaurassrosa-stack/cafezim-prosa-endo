@@ -170,7 +170,7 @@ export default function AdminPage() {
                     <td className="px-4 py-3 text-ink/70">{r.cro || "—"}</td>
                     <td className="px-4 py-3 text-ink/70">{r.state || "—"}</td>
                     <td className="px-4 py-3 text-ink/70">
-                      {PROFILE_TYPE_LABELS[r.profileType as ProfileType] ?? r.profileType}
+                      {PROFILE_TYPE_LABELS[r.profileType as ProfileType] ?? r.profileType ?? "—"}
                     </td>
                     <td className="px-4 py-3 text-ink/70">{r.sessionTitle}</td>
                     <td className="px-4 py-3">

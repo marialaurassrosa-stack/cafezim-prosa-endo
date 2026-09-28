@@ -108,7 +108,7 @@ export const localDb: Db = {
         participant.phone = input.phone;
         participant.cro = input.cro ?? "";
         participant.state = input.state ?? "";
-        participant.profileType = input.profileType;
+        participant.profileType = input.profileType ?? "";
       } else {
         participant = {
           id: randomUUID(),
@@ -117,7 +117,7 @@ export const localDb: Db = {
           phone: input.phone,
           cro: input.cro ?? "",
           state: input.state ?? "",
-          profileType: input.profileType,
+          profileType: input.profileType ?? "",
           createdAt: new Date().toISOString(),
         };
         db.participants.push(participant);

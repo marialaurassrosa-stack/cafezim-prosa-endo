@@ -50,7 +50,6 @@ export function SpeakersSection() {
               <Avatar
                 name={speaker.name}
                 photoUrl={speaker.photoUrl}
-                avatarUrl={speaker.avatarUrl}
                 size={108}
                 originY={speaker.photoOriginY}
                 zoom={speaker.photoZoom}

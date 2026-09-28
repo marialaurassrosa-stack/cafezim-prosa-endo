@@ -4,18 +4,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { Modal } from "@/components/Modal";
 import { XIcon } from "@/components/icons";
 import { trackEvent } from "@/lib/analytics";
-import {
-  PROFILE_TYPE_LABELS,
-  type ParticipantInput,
-  type ProfileType,
-  type RegisterResponse,
-  type SessionWithAvailability,
-} from "@/types";
-
-const UF_LIST = [
-  "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT",
-  "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO",
-];
+import type { ParticipantInput, RegisterResponse, SessionWithAvailability } from "@/types";
 
 const STORAGE_KEY = "cafezim-prosa-endo:participant";
 
@@ -23,9 +12,6 @@ interface StoredParticipant {
   name: string;
   phone: string;
   email: string;
-  cro: string;
-  state: string;
-  profileType: ProfileType | "";
 }
 
 function loadStoredParticipant(): StoredParticipant | null {
@@ -54,9 +40,6 @@ export function RegistrationForm({ open, onClose, selectedSessions, onSuccess }:
   const [name, setName] = useState(stored?.name ?? "");
   const [phone, setPhone] = useState(stored?.phone ?? "");
   const [email, setEmail] = useState(stored?.email ?? "");
-  const [cro, setCro] = useState(stored?.cro ?? "");
-  const [state, setState] = useState(stored?.state ?? "");
-  const [profileType, setProfileType] = useState<ProfileType | "">(stored?.profileType ?? "");
   const [consent, setConsent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -65,7 +48,7 @@ export function RegistrationForm({ open, onClose, selectedSessions, onSuccess }:
     e.preventDefault();
     setError(null);
 
-    if (!name.trim() || !phone.trim() || !email.trim() || !profileType || !consent) {
+    if (!name.trim() || !phone.trim() || !email.trim() || !consent) {
       setError("Preencha os campos obrigatórios e aceite a política de privacidade.");
       return;
     }
@@ -74,9 +57,6 @@ export function RegistrationForm({ open, onClose, selectedSessions, onSuccess }:
       name: name.trim(),
       phone: phone.trim(),
       email: email.trim(),
-      cro: cro.trim(),
-      state,
-      profileType,
       consent,
     };
 
@@ -99,7 +79,7 @@ export function RegistrationForm({ open, onClose, selectedSessions, onSuccess }:
       try {
         window.localStorage.setItem(
           STORAGE_KEY,
-          JSON.stringify({ name: participant.name, phone: participant.phone, email: participant.email, cro: participant.cro, state: participant.state, profileType: participant.profileType })
+          JSON.stringify({ name: participant.name, phone: participant.phone, email: participant.email })
         );
       } catch {
         // localStorage indisponível (ex.: modo privado) — não é crítico.
@@ -184,50 +164,6 @@ export function RegistrationForm({ open, onClose, selectedSessions, onSuccess }:
             autoComplete="email"
           />
         </Field>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field label="CRO" htmlFor="reg-cro">
-            <input id="reg-cro" value={cro} onChange={(e) => setCro(e.target.value)} className={inputClass} />
-          </Field>
-          <Field label="Estado" htmlFor="reg-state">
-            <select id="reg-state" value={state} onChange={(e) => setState(e.target.value)} className={inputClass}>
-              <option value="">Selecione</option>
-              {UF_LIST.map((uf) => (
-                <option key={uf} value={uf}>
-                  {uf}
-                </option>
-              ))}
-            </select>
-          </Field>
-        </div>
-
-        <fieldset>
-          <legend className="mb-2 text-sm font-semibold text-ink">
-            Você é: <span className="text-red">*</span>
-          </legend>
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-            {(Object.entries(PROFILE_TYPE_LABELS) as [ProfileType, string][]).map(([value, label]) => (
-              <label
-                key={value}
-                className={`flex min-h-11 cursor-pointer items-center justify-center rounded-full border px-3 py-2 text-center text-sm font-medium transition-colors ${
-                  profileType === value
-                    ? "border-purple bg-purple text-white"
-                    : "border-ink/15 text-ink hover:border-purple/40"
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="profileType"
-                  value={value}
-                  checked={profileType === value}
-                  onChange={() => setProfileType(value)}
-                  className="sr-only"
-                />
-                {label}
-              </label>
-            ))}
-          </div>
-        </fieldset>
 
         <label className="flex items-start gap-3 rounded-2xl bg-cream p-4 text-sm text-ink/80">
           <input

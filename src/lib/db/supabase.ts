@@ -70,7 +70,7 @@ export const supabaseDb: Db = {
       p_phone: input.phone,
       p_cro: input.cro ?? null,
       p_state: input.state ?? null,
-      p_profile_type: input.profileType,
+      p_profile_type: input.profileType ?? null,
       p_session_ids: sessionIds,
     });
     if (error) throw error;

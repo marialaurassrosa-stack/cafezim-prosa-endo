@@ -34,15 +34,8 @@ export interface Speaker {
   credentials: string;
   institution: string;
   bio: string;
-  /** Portrait — used in the card and in the speaker modal. Path under /public, or null to fall back to the initials placeholder. */
+  /** Portrait — the single source photo used everywhere (card, modal, avatar circle). Path under /public, or null to fall back to the initials placeholder. */
   photoUrl: string | null;
-  /**
-   * Ready-made circular badge (photo already cropped into a circle with the
-   * yellow ring baked in by design) — used only in the "Quem vai sentar para
-   * prosear?" grid. Falls back to cropping `photoUrl` into a circle (see
-   * Avatar.tsx) when not set.
-   */
-  avatarUrl?: string | null;
   /**
    * Vertical crop anchor, 0 (top) to 100 (bottom), as a % of the source
    * photo's height. Used as both `object-position` and `transform-origin`.
@@ -101,7 +94,8 @@ export interface ParticipantInput {
   phone: string;
   cro?: string;
   state?: string;
-  profileType: ProfileType;
+  /** No longer collected by the registration form (simplified to name/phone/email) — kept optional for old records. */
+  profileType?: ProfileType;
   consent: boolean;
 }
 

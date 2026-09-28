@@ -5,43 +5,24 @@ interface AvatarProps {
   photoUrl: string | null;
   size?: number;
   className?: string;
-  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. Ignored when `avatarUrl` is set. */
+  /** Same crop tuning as the card photo (speaker.photoOriginY) — keeps face framing consistent between card and avatar. */
   originY?: number;
-  /** Same crop tuning as the card photo (speaker.photoZoom). Ignored when `avatarUrl` is set. */
+  /** Same crop tuning as the card photo (speaker.photoZoom). */
   zoom?: number;
-  /** Ready-made circular badge (yellow ring baked in by design) — takes priority over cropping `photoUrl`. */
-  avatarUrl?: string | null;
 }
 
 /**
- * Shows the real photo cropped into a clean circle with a thin yellow ring,
- * otherwise a purple initials placeholder ("never fake a professor's face").
- *
- * The photo is deliberately rendered a bit smaller than the outer circle
- * (inset) so the yellow ring behind it always shows — no white ever, since
- * this crops the same edge-to-edge purple portrait used in the card/modal,
- * not a separate pre-shaped asset.
+ * Shows the exact same portrait used in the card, cropped into a plain
+ * circle (same photoUrl + zoom/origin, no separate asset and no ring/border
+ * — "mesmo enquadramento e identidade visual em todos os pontos da
+ * página"), otherwise a purple initials placeholder ("never fake a
+ * professor's face").
  */
-export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1, avatarUrl }: AvatarProps) {
-  if (avatarUrl) {
-    return (
-      <div className={`relative shrink-0 ${className}`} style={{ width: size, height: size }}>
-        {/* Já vem pronto (foto + anel amarelo + fundo transparente) — só encaixar, sem recorte/zoom próprio. */}
-        {/* eslint-disable-next-line @next/next/no-img-element -- badge pronto, tamanho fixo por professor */}
-        <img
-          src={avatarUrl}
-          alt={name}
-          loading="lazy"
-          decoding="async"
-          className="h-full w-full object-contain"
-        />
-      </div>
-    );
-  }
+export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0, zoom = 1 }: AvatarProps) {
   if (photoUrl) {
     return (
       <div
-        className={`relative shrink-0 overflow-hidden rounded-full bg-yellow ${className}`}
+        className={`relative shrink-0 overflow-hidden rounded-full ${className}`}
         style={{ width: size, height: size }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element -- local/CMS photos of arbitrary aspect ratio, no next/image config needed */}
@@ -50,10 +31,7 @@ export function Avatar({ name, photoUrl, size = 56, className = "", originY = 0,
           alt={name}
           loading="lazy"
           decoding="async"
-          // Explicit w/h (not just the inset shorthand) because Tailwind's
-          // preflight sets `img { height: auto }`, which has bitten this
-          // exact "absolutely positioned photo" pattern before.
-          className="absolute inset-[6%] h-[88%] w-[88%] rounded-full object-cover"
+          className="h-full w-full object-cover"
           style={{
             objectPosition: `50% ${originY}%`,
             transform: zoom !== 1 ? `scale(${zoom})` : undefined,

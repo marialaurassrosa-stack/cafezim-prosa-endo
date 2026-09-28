@@ -28,7 +28,6 @@ function validate(body: unknown): { participant: ParticipantInput; sessionIds: s
   if (!isNonEmptyString(participant.name)) return null;
   if (!isNonEmptyString(participant.email) || !participant.email.includes("@")) return null;
   if (!isNonEmptyString(participant.phone)) return null;
-  if (!PROFILE_TYPES.includes(participant.profileType as ProfileType)) return null;
   if (participant.consent !== true) return null;
 
   const validSessionIds = sessionIds.filter((id) => sessionDefs.some((s) => s.id === id));
@@ -41,7 +40,9 @@ function validate(body: unknown): { participant: ParticipantInput; sessionIds: s
       phone: (participant.phone as string).trim(),
       cro: isNonEmptyString(participant.cro) ? (participant.cro as string).trim() : "",
       state: isNonEmptyString(participant.state) ? (participant.state as string).trim() : "",
-      profileType: participant.profileType as ProfileType,
+      profileType: PROFILE_TYPES.includes(participant.profileType as ProfileType)
+        ? (participant.profileType as ProfileType)
+        : undefined,
       consent: true,
     },
     sessionIds: validSessionIds,
