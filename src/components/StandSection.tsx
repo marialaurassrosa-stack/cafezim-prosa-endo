@@ -4,7 +4,7 @@ export function StandSection() {
   return (
     <section id="cobe-2026" className="bg-cream px-4 py-16 sm:px-6 sm:py-20">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 rounded-3xl bg-white p-8 text-center shadow-sm sm:p-10">
-        <div className="w-full max-w-xs overflow-hidden rounded-2xl shadow-sm">
+        <div className="w-full max-w-xs overflow-hidden rounded-2xl shadow-sm lg:max-w-md">
           {/* eslint-disable-next-line @next/next/no-img-element -- arte de divulgação, sem next/image */}
           <img
             src="/images/stand-map.webp"
