@@ -16,7 +16,7 @@ export function StandSection() {
           <div className="flex flex-1 flex-col gap-6">
             <div>
               <h2 className="text-3xl leading-tight font-extrabold text-purple-dark">
-                Encontre a <span className="text-yellow">Biodental</span> no COBE
+                Encontre a <span style={{ color: "#d91f33" }}>Biodental</span> no COBE
               </h2>
               <p className="mt-4 text-ink/70">
                 Estamos pertinho da entrada e de frente com a Easy. Siga o caminho roxo e venha prosear com a
