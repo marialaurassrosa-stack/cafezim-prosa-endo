@@ -97,26 +97,16 @@ body {
   background-size: 18px 18px;
 }
 
-/* Foto do professor no card. No mobile o quadro da foto é largo e baixo
-   (foto em cima, cartão embaixo) — bem mais largo que alto, o oposto do
-   enquadramento vertical dos retratos — então "cover" cortaria a cabeça;
-   usamos "contain" ali para sempre mostrar a foto inteira. A partir do card
-   em duas colunas (@container @lg, foto ao lado do conteúdo) o quadro fica
-   estreito e alto, parecido com um retrato, e passamos para "cover" com o
-   zoom/ancoragem própria de cada foto (--photo-origin-y/--photo-zoom,
-   definidos por professor via style inline) para compensar retratos-fonte
-   com "enquadramentos" (quantidade de fundo sobrando) bem diferentes entre
-   si — ver SessionCard.tsx e src/data/speakers.ts. */
+/* Foto do professor no card. A coluna da foto é sempre estreita e alta
+   (retrato ao lado do conteúdo, do mobile ao desktop), então "cover" nunca
+   precisa cortar em cima da cabeça — só nas laterais. Cada foto tem seu
+   próprio zoom/ancoragem (--photo-origin-y/--photo-zoom, definidos por
+   professor via style inline) para compensar retratos-fonte com
+   "enquadramentos" (quantidade de fundo sobrando) bem diferentes entre si —
+   ver SessionCard.tsx e src/data/speakers.ts. */
 .speaker-photo {
-  object-fit: contain;
-  object-position: 50% 0%;
-}
-
-@container (min-width: 32rem) {
-  .speaker-photo {
-    object-fit: cover;
-    object-position: 50% var(--photo-origin-y, 0%);
-    transform: scale(var(--photo-zoom, 1));
-    transform-origin: 50% var(--photo-origin-y, 0%);
-  }
+  object-fit: cover;
+  object-position: 50% var(--photo-origin-y, 0%);
+  transform: scale(var(--photo-zoom, 1));
+  transform-origin: 50% var(--photo-origin-y, 0%);
 }

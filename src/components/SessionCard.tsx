@@ -33,18 +33,25 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
         aria-hidden="true"
       />
 
-      {/* Layout responde à largura do próprio card (container query), não à
-          da viewport — importante porque o card fica bem mais estreito
-          quando a grade mostra 2 por linha. */}
-      <div className="relative flex flex-col @lg:flex-row">
-        {/* .speaker-photo (globals.css): no mobile o quadro é largo e baixo,
-            então mostramos a foto inteira (contain) pra nunca cortar a
-            cabeça; a partir do card em duas colunas (@lg) o quadro fica
-            estreito e alto como um retrato e passa pra cover — nesse ponto
-            os retratos-fonte com "enquadramento" mais afastado (mais fundo
-            roxo sobrando) precisam de um zoom próprio pra aparentar o mesmo
-            tamanho dos demais (photoZoom/photoOriginY, ver speakers.ts). */}
-        <div className="relative z-10 flex h-64 shrink-0 items-start justify-center overflow-hidden bg-gradient-to-b from-purple to-purple-dark @lg:h-auto @lg:min-h-[360px] @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
+      {/* Foto ao lado do conteúdo em qualquer largura — mesmo layout do
+          mobile ao desktop, só a proporção da coluna da foto cresce quando
+          o card fica mais largo (container query, não viewport, porque o
+          card fica bem mais estreito quando a grade mostra 2 por linha). */}
+      <div className="relative flex flex-row items-start @lg:items-stretch">
+        {/* .speaker-photo (globals.css) sempre em cover + zoom/ancoragem
+            próprios de cada foto — como a coluna da foto é sempre estreita
+            (retrato), o corte nunca cai em cima da cabeça, só nas laterais.
+            Os retratos-fonte com "enquadramento" mais afastado (mais fundo
+            roxo sobrando) usam um zoom próprio pra aparentar o mesmo tamanho
+            dos demais (photoZoom/photoOriginY, speakers.ts).
+            Abaixo de @lg a altura é fixa (não acompanha o conteúdo) — o
+            texto do card no mobile é bem mais alto que no desktop (fonte
+            maior, botões empilhados), e deixar a foto esticar até essa
+            altura toda deixaria a coluna finíssima e cortaria demais das
+            laterais; a partir de @lg (conteúdo mais compacto, ver
+            SessionActionButton) ela volta a acompanhar a altura do card
+            como antes. */}
+        <div className="relative z-10 flex h-[220px] w-[38%] min-w-[110px] max-w-[170px] shrink-0 items-start justify-center overflow-hidden bg-gradient-to-b from-purple to-purple-dark @lg:h-auto @lg:min-h-[360px] @lg:w-[39%] @lg:min-w-[230px] @lg:max-w-[320px]">
           {speaker.photoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
             <img
