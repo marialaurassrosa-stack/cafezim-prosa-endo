@@ -1,3 +1,4 @@
+import { PromoBar } from "@/components/PromoBar";
 import { siteConfig } from "@/config/site";
 
 /**
@@ -13,7 +14,16 @@ import { siteConfig } from "@/config/site";
  */
 export function Hero() {
   return (
-    <section id="top" className="relative bg-purple-dark text-white lg:bg-white">
+    <section id="top" className="relative bg-white">
+      <div className="bg-dot-grid px-4 pt-10 pb-6 text-center sm:px-6 lg:pt-14 lg:pb-8">
+        <p className="text-xl font-medium text-purple-700 sm:text-2xl lg:text-3xl">
+          Sente à mesa, tire suas dúvidas e
+        </p>
+        <p className="text-xl font-extrabold text-red sm:text-2xl lg:text-3xl">
+          leve novas ideias para a clínica.
+        </p>
+      </div>
+
       {/* ===== Mobile (abaixo de lg): arte quadrada, edge-to-edge ===== */}
       <div className="relative aspect-square w-full overflow-hidden lg:hidden">
         {siteConfig.heroImageUrlMobile ? (
@@ -37,9 +47,12 @@ export function Hero() {
       </div>
 
       {/* ===== Desktop (lg+): arte retangular, com margem e cantos
-          arredondados em vez de ocupar a tela toda ===== */}
-      <div className="relative hidden lg:block lg:px-6 lg:pt-6">
-        <div className="relative aspect-[2000/556] w-full overflow-hidden lg:mx-auto lg:max-w-6xl lg:rounded-[32px]">
+          arredondados em vez de ocupar a tela toda. max-w 50% maior que
+          antes (72rem -> 108rem) a pedido — em telas menores que 108rem
+          (a maioria) o banner ocupa a largura toda disponível (só o
+          lg:px-6 limita), então fica proporcionalmente ainda maior. ===== */}
+      <div className="relative hidden lg:block lg:px-6 lg:pb-6">
+        <div className="relative aspect-[2000/556] w-full overflow-hidden lg:mx-auto lg:max-w-[108rem] lg:rounded-[32px]">
           {siteConfig.heroImageUrlDesktop ? (
             // eslint-disable-next-line @next/next/no-img-element -- banner em tela cheia, sem next/image
             <img src={siteConfig.heroImageUrlDesktop} alt="" className="h-full w-full object-cover" />
@@ -60,6 +73,8 @@ export function Hero() {
           />
         </div>
       </div>
+
+      <PromoBar />
 
       <div className="sr-only">
         <h1>Cafezim, Prosa &amp; Endo</h1>

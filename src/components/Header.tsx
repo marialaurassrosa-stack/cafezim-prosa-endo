@@ -5,8 +5,8 @@ import { MenuIcon, XIcon } from "@/components/icons";
 
 const NAV_LINKS = [
   { href: "#programacao", label: "Programação" },
-  { href: "#professores", label: "Professores" },
-  { href: "#cobe-2026", label: "COBE 2026" },
+  { href: "#professores", label: "Temas e Professores" },
+  { href: "#cobe-2026", label: "Nosso stand" },
 ];
 
 export function Header() {
@@ -25,7 +25,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-ink/70 transition-colors hover:text-purple-700"
+              className="border-b-2 border-transparent pb-1 text-sm font-semibold text-ink/70 transition-colors hover:border-yellow hover:text-purple-700"
             >
               {link.label}
             </a>
