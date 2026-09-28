@@ -24,7 +24,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "arthur-napoleao",
-    name: "Prof. Ms. Arthur Napoleão",
+    name: "Prof. Ms. Artur Napoleão P. de Araújo",
     credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
@@ -51,7 +51,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "alexandre-bortoloto",
-    name: "Dr. Alexandre Bortoloto",
+    name: "Prof. Alexandre Bortolotto",
     credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
@@ -65,7 +65,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "aloisio-napoleao",
-    name: "Prof. Ms. Aloísio Napoleão",
+    name: "Prof. Ms. Aloísio Napoleão Araújo",
     credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
@@ -74,7 +74,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "key-fabiano-souza",
-    name: "Prof. Dr. Key Fabiano Souza",
+    name: "Prof. Fabiano Souza",
     credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",

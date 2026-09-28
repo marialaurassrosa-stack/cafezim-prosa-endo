@@ -1,32 +1,38 @@
 import type { SessionDef } from "@/types";
 
 /**
- * PLACEHOLDER DATA — temas, descrições e vagas fictícios para demonstrar a
- * programação e o fluxo de inscrição. Edite livremente: adicione, remova ou
- * altere sessões aqui. Cada `id` deve ser único (sugestão de padrão:
- * `{eventCode}_{dia}_{horario}_{tema}`), pois ele é usado como chave estável
- * no banco de inscrições.
+ * Programação real, recebida da Biodental (planilha "Coffee & Learning &
+ * Endo"). Temas e horários vêm da própria planilha; shortDescription,
+ * fullDescription e highlights foram escritos por nós a partir do título de
+ * cada tema (a planilha não trazia descrição longa) — ajuste livremente se a
+ * Biodental fornecer um texto oficial.
+ *
+ * Dois blocos da planilha ficaram de fora de propósito: "Easy" (12h do dia
+ * 2 e 11h do dia 3) e "Almoço COBE CORTESIA" (13h do dia 2) não são
+ * atividades com inscrição, são pausas/intervalos. A sessão das 16h do dia 2
+ * (Prof. Dr. Marco Hungaro) também ficou de fora por enquanto: na planilha
+ * o tema real está marcado como "não pode divulgar" ainda.
  *
  * `capacity` controla o número de vagas; `status` pode ser sobrescrito
  * manualmente para "sold_out" (esgotado), "cancelled" (cancelado) ou
  * "hidden" (oculto da programação) independente da contagem de inscritos.
  */
 export const sessions: SessionDef[] = [
-  // ---------- DIA 01 ----------
+  // ---------- DIA 01 (08/out) ----------
   {
-    id: "COBE26_D1_0930_MOLARES",
+    id: "COBE26_D1_1400_MOLARQUENTE",
     dayId: "day1",
-    startTime: "09:30",
-    endTime: "10:10",
+    startTime: "14:00",
+    endTime: "15:00",
     activityType: "roda_de_conversa",
-    title: "Molares quentes,\nmentes frias",
+    title: "Molar quente?\nComo manter a mente fria",
     speakerId: "anarela-bernardi",
     shortDescription:
-      "Uma conversa prática sobre estratégias de diagnóstico, tomada de decisão e condução de casos clínicos desafiadores.",
+      "Uma conversa sobre como manter a clareza de raciocínio e tomar boas decisões diante de um molar com dor aguda.",
     fullDescription:
-      "Uma conversa prática sobre estratégias de diagnóstico, tomada de decisão e condução de casos clínicos desafiadores em molares com quadros agudos.",
+      "Uma conversa prática sobre como manter a mente fria diante de um molar com quadro agudo — do diagnóstico à decisão de tratamento, sem perder a calma nem a qualidade técnica.",
     highlights: [
-      "Diagnóstico diferencial em dor aguda",
+      "Diagnóstico em quadros agudos",
       "Tomada de decisão sob pressão",
       "Casos reais trazidos pelo grupo",
     ],
@@ -34,185 +40,183 @@ export const sessions: SessionDef[] = [
     status: "active",
   },
   {
-    id: "COBE26_D1_0930_CASOCLINICO",
+    id: "COBE26_D1_1500_BIOATIVIDADE",
     dayId: "day1",
-    startTime: "09:30",
-    endTime: "10:15",
-    activityType: "caso_clinico",
-    title: "Caso clínico:\ndecisão sob pressão",
+    startTime: "15:00",
+    endTime: "16:00",
+    activityType: "demonstracao",
+    title: "Bioatividade além do canal:\nElevação de margem",
     speakerId: "arthur-napoleao",
     shortDescription:
-      "Discussão em grupo pequeno de um caso complexo, do diagnóstico ao plano de tratamento final.",
+      "Como usar materiais bioativos para além do canal radicular, na elevação de margem cervical.",
     fullDescription:
-      "Discussão em grupo pequeno de um caso complexo, do diagnóstico ao plano de tratamento final. Traga suas próprias dúvidas para o debate.",
+      "Uma imersão no uso de materiais bioativos na elevação de margem cervical, discutindo indicações, técnica e o que muda no resultado a longo prazo.",
     highlights: [
-      "Análise radiográfica em grupo",
-      "Alternativas de tratamento",
-      "Perguntas e respostas abertas",
+      "Materiais bioativos na prática",
+      "Técnica de elevação de margem",
+      "Indicações e limites",
     ],
     capacity: 5,
     status: "active",
   },
   {
-    id: "COBE26_D1_1100_ULTRASSOM",
+    id: "COBE26_D1_1600_ANATOMIAS",
     dayId: "day1",
-    startTime: "11:00",
-    endTime: "11:45",
+    startTime: "16:00",
+    endTime: "17:00",
     activityType: "demonstracao",
-    title: "Ultrassom em Endodontia:\nquando e como usar",
+    title: "Anatomias complexas:\nSistema Orodeka",
     speakerId: "danilo-shimanuko",
     shortDescription:
-      "Demonstração prática do uso do ultrassom em diferentes etapas do tratamento endodôntico.",
+      "Como o Sistema Orodeka ajuda a lidar com anatomias radiculares complexas no dia a dia clínico.",
     fullDescription:
-      "Demonstração prática do uso do ultrassom em diferentes etapas do tratamento endodôntico, da localização de canais à remoção de obstruções.",
+      "Demonstração do Sistema Orodeka aplicado a anatomias radiculares complexas, com foco em estratégias práticas para não perder a referência do canal.",
     highlights: [
-      "Seleção de pontas por situação clínica",
-      "Ajustes de potência",
-      "Erros comuns e como evitá-los",
+      "Reconhecimento de anatomias complexas",
+      "Uso do Sistema Orodeka",
+      "Estratégias para casos difíceis",
     ],
     capacity: 5,
     status: "active",
   },
   {
-    id: "COBE26_D1_1400_BIOCERA",
+    id: "COBE26_D1_1700_CCONEBLUE",
     dayId: "day1",
-    startTime: "14:00",
-    endTime: "15:00",
+    startTime: "17:00",
+    endTime: "18:00",
     activityType: "hands_on",
-    title: "Biocerâmicos\nna prática",
+    title: "CC One Blue: reciprocante\ncom eficiência e segurança",
     speakerId: "murilo-borges",
     shortDescription:
-      "Mão na massa com cimentos biocerâmicos: manipulação, indicações e técnica de obturação.",
+      "Uso do sistema reciprocante CC One Blue com eficiência e segurança na instrumentação.",
     fullDescription:
-      "Atividade hands-on para manipular cimentos biocerâmicos, discutir indicações clínicas e treinar a técnica de obturação passo a passo.",
+      "Demonstração prática do sistema reciprocante CC One Blue, discutindo protocolo de uso, eficiência de corte e segurança contra fraturas.",
     highlights: [
-      "Manipulação do material",
-      "Indicações e contraindicações",
-      "Prática em modelo",
+      "Protocolo de instrumentação",
+      "Eficiência de corte",
+      "Prevenção de fraturas",
     ],
     capacity: 5,
     status: "active",
   },
 
-  // ---------- DIA 02 ----------
+  // ---------- DIA 02 (09/out) ----------
   {
-    id: "COBE26_D2_1000_IRRIGACAO",
+    id: "COBE26_D2_1000_ISOLAMENTO",
     dayId: "day2",
     startTime: "10:00",
-    endTime: "10:40",
+    endTime: "11:00",
     activityType: "roda_de_conversa",
-    title: "Irrigação na Endodontia:\nprotocolos que funcionam",
+    title: "Isolamento:\ndesafios na endodontia",
     speakerId: "alexandre-bortoloto",
     shortDescription:
-      "Troca de experiências sobre protocolos de irrigação que realmente fazem diferença no resultado clínico.",
+      "Uma roda de conversa sobre os principais desafios do isolamento absoluto na endodontia do dia a dia.",
     fullDescription:
-      "Troca de experiências sobre protocolos de irrigação, ativação e soluções, com foco no que realmente muda o resultado clínico no dia a dia.",
+      "Troca de experiências sobre os desafios mais comuns do isolamento absoluto na endodontia, e como resolvê-los sem perder tempo de cadeira.",
     highlights: [
-      "Escolha de soluções irrigadoras",
-      "Métodos de ativação",
-      "Protocolos para casos infectados",
+      "Casos difíceis de isolar",
+      "Soluções práticas",
+      "Ganho de eficiência clínica",
     ],
     capacity: 5,
     status: "active",
   },
   {
-    id: "COBE26_D2_1130_RETRATAMENTO",
+    id: "COBE26_D2_1100_BIOATIVIDADE",
     dayId: "day2",
-    startTime: "11:30",
-    endTime: "12:15",
-    activityType: "caso_clinico",
-    title: "Retratamento:\nquando vale a pena tentar",
+    startTime: "11:00",
+    endTime: "12:00",
+    activityType: "demonstracao",
+    title: "Bioatividade além do canal:\nElevação de margem",
     speakerId: "aloisio-napoleao",
     shortDescription:
-      "Critérios práticos para decidir entre retratamento, cirurgia parapical ou exodontia.",
+      "Mais uma conversa sobre bioatividade e elevação de margem, com outro olhar clínico sobre o tema.",
     fullDescription:
-      "Critérios práticos para decidir entre retratamento não cirúrgico, cirurgia parapical ou exodontia, com casos reais para discussão em grupo.",
+      "Continuando o tema do dia anterior, uma nova perspectiva sobre o uso de materiais bioativos na elevação de margem cervical.",
     highlights: [
-      "Critérios de prognóstico",
-      "Casos limítrofes",
-      "Conversa aberta com o professor",
+      "Materiais bioativos na prática",
+      "Técnica de elevação de margem",
+      "Troca de experiências clínicas",
     ],
     capacity: 5,
     status: "active",
   },
   {
-    id: "COBE26_D2_1500_INSTRUMENTACAO",
+    id: "COBE26_D2_1400_ULTRASSOMROTINA",
+    dayId: "day2",
+    startTime: "14:00",
+    endTime: "15:00",
+    activityType: "demonstracao",
+    title: "O ultrassom na rotina endodôntica:\nindicações técnicas e resultados",
+    speakerId: "key-fabiano-souza",
+    shortDescription:
+      "Quando e como incluir o ultrassom na rotina endodôntica para melhorar os resultados.",
+    fullDescription:
+      "Demonstração de indicações técnicas do ultrassom na rotina endodôntica, do preparo à resolução de intercorrências, com foco nos resultados clínicos.",
+    highlights: [
+      "Indicações técnicas do ultrassom",
+      "Ajustes e cuidados de uso",
+      "Resultados clínicos esperados",
+    ],
+    capacity: 5,
+    status: "active",
+  },
+  {
+    id: "COBE26_D2_1500_IRRIGANTECERTO",
     dayId: "day2",
     startTime: "15:00",
     endTime: "16:00",
-    activityType: "roda_hands_on",
-    title: "Instrumentação reciprocante\nna prática",
-    speakerId: "key-fabiano-souza",
+    activityType: "roda_de_conversa",
+    title: "Irrigante certo, volume ideal:\nO que realmente faz diferença no canal?",
+    speakerId: "josiane-almeida",
     shortDescription:
-      "Roda de conversa seguida de prática com sistemas reciprocantes em blocos de treino.",
+      "Uma conversa sobre irrigante e volume ideal: o que realmente muda o resultado da irrigação.",
     fullDescription:
-      "Começamos com uma roda de conversa sobre a lógica dos sistemas reciprocantes e seguimos para a prática em blocos de treino.",
+      "Uma roda de conversa sobre a escolha do irrigante certo e do volume ideal, separando o que realmente faz diferença no resultado do que é só tradição.",
     highlights: [
-      "Lógica do movimento recíproco",
-      "Prática em bloco de treino",
-      "Dicas para evitar fraturas",
+      "Escolha do irrigante",
+      "Volume ideal de irrigação",
+      "O que realmente muda o resultado",
+    ],
+    capacity: 5,
+    status: "active",
+  },
+  {
+    id: "COBE26_D2_1700_RCONECURVATURA",
+    dayId: "day2",
+    startTime: "17:00",
+    endTime: "18:00",
+    activityType: "hands_on",
+    title: "Uso do RC One em canais\ncom curvatura acentuada",
+    speakerId: "eduardo-akisue",
+    shortDescription: "Prática guiada do uso do RC One em canais com curvatura acentuada.",
+    fullDescription:
+      "Atividade prática sobre o uso do sistema RC One em canais com curvatura acentuada, discutindo protocolo e cuidados para evitar acidentes.",
+    highlights: [
+      "Protocolo para canais curvos",
+      "Cuidados para evitar fraturas",
+      "Prática guiada",
     ],
     capacity: 5,
     status: "active",
   },
 
-  // ---------- DIA 03 ----------
+  // ---------- DIA 03 (10/out) ----------
   {
-    id: "COBE26_D3_0930_DIAGNOSTICO",
+    id: "COBE26_D3_1000_BIOCERAMICOS",
     dayId: "day3",
-    startTime: "09:30",
-    endTime: "10:10",
-    activityType: "roda_de_conversa",
-    title: "Diagnóstico diferencial\nem dor orofacial",
-    speakerId: "josiane-almeida",
-    shortDescription:
-      "Uma prosa sobre como diferenciar dor de origem endodôntica de outras causas orofaciais.",
-    fullDescription:
-      "Uma prosa sobre como diferenciar dor de origem endodôntica de outras causas orofaciais, evitando tratamentos desnecessários.",
-    highlights: [
-      "Sinais de alerta",
-      "Testes clínicos úteis",
-      "Quando encaminhar",
-    ],
-    capacity: 5,
-    status: "active",
-  },
-  {
-    id: "COBE26_D3_1100_OBTURACAO",
-    dayId: "day3",
-    startTime: "11:00",
-    endTime: "12:00",
+    startTime: "10:00",
+    endTime: "11:00",
     activityType: "hands_on",
-    title: "Técnicas de obturação:\nalém do convencional",
-    speakerId: "eduardo-akisue",
-    shortDescription:
-      "Prática guiada com técnicas de obturação alternativas à condensação lateral clássica.",
-    fullDescription:
-      "Prática guiada com técnicas de obturação alternativas à condensação lateral clássica, discutindo vantagens e limitações de cada uma.",
-    highlights: [
-      "Comparação entre técnicas",
-      "Prática em modelo",
-      "Perguntas livres",
-    ],
-    capacity: 5,
-    status: "active",
-  },
-  {
-    id: "COBE26_D3_1400_TRAUMA",
-    dayId: "day3",
-    startTime: "14:00",
-    endTime: "14:40",
-    activityType: "demonstracao",
-    title: "Traumatismo dentoalveolar:\nconduta na urgência",
+    title: "Biocerâmicos: escolha,\ntécnica e resultado",
     speakerId: "bruno-bisi",
-    shortDescription:
-      "Demonstração objetiva da conduta nos primeiros atendimentos de traumatismo dentoalveolar.",
+    shortDescription: "Como escolher o biocerâmico certo e a técnica que garante o melhor resultado.",
     fullDescription:
-      "Demonstração objetiva da conduta nos primeiros atendimentos de traumatismo dentoalveolar, do acolhimento ao plano de acompanhamento.",
+      "Mão na massa com cimentos biocerâmicos: como escolher o material certo, a técnica de aplicação e o que esperar do resultado final.",
     highlights: [
-      "Protocolo de urgência",
-      "Reimplante e contenção",
-      "Acompanhamento pós-trauma",
+      "Critérios de escolha do material",
+      "Técnica de aplicação",
+      "Resultado esperado",
     ],
     capacity: 5,
     status: "active",
