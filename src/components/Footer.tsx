@@ -4,7 +4,8 @@ export function Footer() {
   return (
     <footer className="border-t border-ink/10 bg-white px-4 py-10 sm:px-6">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
-        <p className="text-lg font-extrabold text-purple-dark">BIODENTAL</p>
+        {/* eslint-disable-next-line @next/next/no-img-element -- logo oficial, sem next/image */}
+        <img src="/images/biodental-logo.webp" alt="Biodental" className="h-7 w-auto" />
         <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-ink/65">
           <a href={siteConfig.links.biodentalSite} className="hover:text-purple-700">
             Site Biodental

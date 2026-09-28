@@ -15,8 +15,9 @@ export function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-ink/10 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="#top" className="text-lg font-extrabold tracking-tight text-purple-dark">
-          BIODENTAL
+        <a href="#top" className="shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element -- logo oficial, sem next/image */}
+          <img src="/images/biodental-logo.webp" alt="Biodental" className="h-6 w-auto sm:h-7" />
         </a>
 
         <nav className="hidden items-center gap-8 lg:flex">

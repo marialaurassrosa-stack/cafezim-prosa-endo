@@ -12,8 +12,6 @@ export const siteConfig = {
   eventFullName: "Congresso Brasileiro de Endodontia",
   city: "Belo Horizonte",
   standName: "Stand Biodental",
-  // TODO: preencher com o número/localização do estande assim que divulgado pela organização do COBE.
-  standNumber: null as string | null,
 
   // Banner oficial recebido da Biodental (arte pronta, com título, botão e
   // datas já desenhados na própria imagem).
