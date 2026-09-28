@@ -38,17 +38,19 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
       />
 
       {/* ===== Mobile (abaixo de @lg): versão compacta, layout próprio —
-          card mais baixo, tema em destaque, foto pequena ao lado do nome.
+          card mais baixo, tema em destaque, foto ao lado do nome+duração.
+          Medidas (tamanho da foto, fonte do tema, etc.) tiradas por pixel do
+          mockup de referência do pedido, não só "no olho".
           Independente do bloco desktop abaixo (nada aqui é compartilhado
           por classe condicional) para nunca arriscar mudar o desktop. */}
-      <div className="relative z-10 flex flex-col gap-3 p-4 @lg:hidden">
+      <div className="relative z-10 flex flex-col gap-4 p-5 @lg:hidden">
         <div className="flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1 text-xs font-extrabold text-purple-dark">
+          <span className="inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1.5 text-xs font-extrabold text-purple-dark">
             <CalendarIcon className="h-3.5 w-3.5" />
             {formatCardDateBadge(session.day, session.startTime)}
           </span>
           <span
-            className={`inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1 text-xs font-bold ${
+            className={`inline-flex items-center gap-1 rounded-full bg-cream-2 px-3 py-1.5 text-xs font-bold ${
               !cancelled && session.availableSeats <= 0 ? "text-red" : "text-ink/60"
             }`}
           >
@@ -57,12 +59,12 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
           </span>
         </div>
 
-        <h3 className="text-lg leading-snug font-extrabold whitespace-pre-line text-purple-dark">
+        <h3 className="text-2xl leading-snug font-extrabold whitespace-pre-line text-purple-dark">
           {session.title}
         </h3>
 
         <div className="flex items-center gap-3">
-          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-gradient-to-b from-purple to-purple-dark">
+          <div className="h-[104px] w-[104px] shrink-0 overflow-hidden rounded-2xl bg-gradient-to-b from-purple to-purple-dark">
             {speaker.photoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element -- foto de professor com recorte próprio, sem next/image
               <img
@@ -77,19 +79,20 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
               />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
-                <PersonSilhouetteIcon className="h-7 w-7 text-white/20" />
+                <PersonSilhouetteIcon className="h-9 w-9 text-white/20" />
               </div>
             )}
           </div>
-          <div className="flex min-w-0 items-center gap-2">
-            <span className="h-5 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
-            <p className="min-w-0 text-sm leading-snug font-bold text-purple-dark">{speaker.name}</p>
+          <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+            <div className="flex min-w-0 items-center gap-2">
+              <span className="h-5 w-1 shrink-0 rounded-full bg-purple" aria-hidden="true" />
+              <p className="min-w-0 text-sm leading-snug font-bold text-purple-dark">{speaker.name}</p>
+            </div>
+            <div className="flex items-center gap-1.5 pl-3 text-xs font-medium text-ink/60">
+              <ClockIcon className="h-3.5 w-3.5" />
+              {formatDuration(session.durationMinutes)}
+            </div>
           </div>
-        </div>
-
-        <div className="flex items-center gap-1.5 text-xs font-medium text-ink/60">
-          <ClockIcon className="h-3.5 w-3.5" />
-          {formatDuration(session.durationMinutes)}
         </div>
 
         <div className="flex items-center justify-between gap-3 pt-1">
