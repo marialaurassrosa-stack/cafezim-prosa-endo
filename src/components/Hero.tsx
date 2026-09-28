@@ -15,7 +15,7 @@ import { siteConfig } from "@/config/site";
 export function Hero() {
   return (
     <section id="top" className="relative bg-white">
-      <div className="bg-dot-grid px-4 pt-10 pb-6 text-center sm:px-6 lg:pt-14 lg:pb-8">
+      <div className="px-4 pt-10 pb-6 text-center sm:px-6 lg:pt-14 lg:pb-8">
         <p className="text-xl font-medium text-purple-700 sm:text-2xl lg:text-3xl">
           Sente à mesa, tire suas dúvidas e
         </p>
