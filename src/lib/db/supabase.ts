@@ -120,4 +120,13 @@ export const supabaseDb: Db = {
     }));
     return result;
   },
+
+  async cancelRegistration(registrationId: string) {
+    const supabase = getClient();
+    const { error } = await supabase
+      .from("registrations")
+      .update({ status: "cancelled" })
+      .eq("id", registrationId);
+    if (error) throw error;
+  },
 };

@@ -206,4 +206,14 @@ export const localDb: Db = {
     }
     return rows.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   },
+
+  async cancelRegistration(registrationId: string) {
+    await withLock(async () => {
+      const db = await readDb();
+      const reg = db.registrations.find((r) => r.id === registrationId);
+      if (!reg) return;
+      reg.status = "cancelled";
+      await writeDb(db);
+    });
+  },
 };

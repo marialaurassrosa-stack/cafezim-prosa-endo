@@ -51,6 +51,38 @@ export default function AdminPage() {
     router.push("/admin/login");
   }
 
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+
+  async function refreshRegistrations() {
+    const res = await fetch("/api/admin/registrations");
+    if (res.status === 401) {
+      router.push("/admin/login");
+      return;
+    }
+    const data = (await res.json()) as { rows: AdminRegistrationRow[]; summary: SessionSummary[] };
+    setRows(data.rows);
+    setSummary(data.summary);
+  }
+
+  async function handleCancel(registrationId: string, name: string) {
+    if (!window.confirm(`Cancelar a inscrição de ${name}? A vaga volta a ficar disponível.`)) return;
+    setCancellingId(registrationId);
+    try {
+      const res = await fetch(`/api/admin/registrations/${registrationId}`, { method: "DELETE" });
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
+      if (!res.ok) {
+        window.alert("Não foi possível cancelar a inscrição. Tente novamente.");
+        return;
+      }
+      await refreshRegistrations();
+    } finally {
+      setCancellingId(null);
+    }
+  }
+
   const filteredRows = useMemo(() => {
     return rows.filter((r) => {
       if (dayFilter && r.dayId !== dayFilter) return false;
@@ -146,18 +178,19 @@ export default function AdminPage() {
                 <th className="px-4 py-3">Perfil</th>
                 <th className="px-4 py-3">Atividade</th>
                 <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-ink/5">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-ink/50">
+                  <td colSpan={9} className="px-4 py-8 text-center text-ink/50">
                     Carregando...
                   </td>
                 </tr>
               ) : filteredRows.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center text-ink/50">
+                  <td colSpan={9} className="px-4 py-8 text-center text-ink/50">
                     Nenhuma inscrição encontrada.
                   </td>
                 </tr>
@@ -181,6 +214,16 @@ export default function AdminPage() {
                       >
                         {r.status === "confirmed" ? "Confirmado" : "Lista de espera"}
                       </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        type="button"
+                        onClick={() => handleCancel(r.registrationId, r.name)}
+                        disabled={cancellingId === r.registrationId}
+                        className="text-sm font-semibold text-red hover:underline disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {cancellingId === r.registrationId ? "Cancelando..." : "Cancelar"}
+                      </button>
                     </td>
                   </tr>
                 ))

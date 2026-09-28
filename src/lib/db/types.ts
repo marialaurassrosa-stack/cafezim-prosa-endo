@@ -41,4 +41,12 @@ export interface Db {
 
   /** Flat, joined rows for the admin dashboard / CSV export. */
   listRegistrations(): Promise<AdminRegistrationRow[]>;
+
+  /**
+   * Marks a registration as cancelled (soft delete — the row stays for
+   * history, but stops counting toward confirmed/waitlist and disappears
+   * from listRegistrations()/the admin table). Frees the seat immediately,
+   * same as any other cancelled registration.
+   */
+  cancelRegistration(registrationId: string): Promise<void>;
 }
