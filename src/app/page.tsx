@@ -20,8 +20,8 @@ export default async function Home() {
       <main className="flex-1">
         <Hero />
         <ScheduleExperience initialSchedule={schedule} />
-        <SpeakersSection initialSchedule={schedule} />
         <StandSection />
+        <SpeakersSection initialSchedule={schedule} />
         <CtaFinal />
       </main>
       <Footer />
