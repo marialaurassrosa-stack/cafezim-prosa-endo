@@ -120,13 +120,11 @@ export const speakers: Speaker[] = [
     institution: "Consultor Técnico da Easy Bassi",
     bio: "Há 27 anos atua como Consultor Técnico da Easy Bassi. Palestrante reconhecido na área, compartilha em suas redes sociais casos clínicos, dicas de prevenção de fraturas de instrumentos e reflexões sobre a prática clínica da Endodontia.",
     photoUrl: "/images/speakers/valadao.png",
-    // Sem avatarUrl de propósito: a bolinha enviada pra ele veio com fundo
-    // branco sólido (sem transparência), diferente das outras 10 — usá-la
-    // reproduziria o mesmo bug de "quadrado branco" já corrigido antes.
-    // Até chegar uma versão com fundo transparente, o avatar cai no
-    // fallback (recorta o retrato do card em círculo puro, sem anel
-    // amarelo) — visualmente um pouco diferente dos demais, mas sem o
-    // defeito visual.
+    // A bolinha original (enviada com fundo branco sólido, sem
+    // transparência) foi recortada por script (flood-fill a partir das
+    // bordas brancas) pra virar um PNG transparente de verdade, igual às
+    // outras 10 — ver public/images/speakers/bolinhas/valadao.png.
+    avatarUrl: "/images/speakers/bolinhas/valadao.png",
   },
 ];
 
