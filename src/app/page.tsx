@@ -5,15 +5,22 @@ import { Hero } from "@/components/Hero";
 import { ScheduleExperience } from "@/components/ScheduleExperience";
 import { SpeakersSection } from "@/components/SpeakersSection";
 import { StandSection } from "@/components/StandSection";
+import { buildSchedule } from "@/lib/schedule";
 
-export default function Home() {
+// Vagas mudam a cada inscrição — sem isso a página seria pré-renderizada uma
+// vez no build e todo mundo veria a contagem de vagas do dia do deploy.
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const schedule = await buildSchedule();
+
   return (
     <>
       <Header />
       <main className="flex-1">
         <Hero />
-        <ScheduleExperience />
-        <SpeakersSection />
+        <ScheduleExperience initialSchedule={schedule} />
+        <SpeakersSection initialSchedule={schedule} />
         <StandSection />
         <CtaFinal />
       </main>

@@ -30,10 +30,15 @@ interface SuccessState {
   sessions: SessionWithAvailability[];
 }
 
-export function ScheduleExperience() {
-  const [schedule, setSchedule] = useState<ScheduleResponse | null>(null);
-  const [loadError, setLoadError] = useState<string | null>(null);
-  const [activeDayId, setActiveDayId] = useState<DayId>("day1");
+interface ScheduleExperienceProps {
+  /** Vem pronto do servidor (page.tsx -> buildSchedule()) — a programação já
+   * aparece na primeira renderização, sem esperar um fetch no cliente. */
+  initialSchedule: ScheduleResponse;
+}
+
+export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps) {
+  const [schedule, setSchedule] = useState<ScheduleResponse>(initialSchedule);
+  const [activeDayId, setActiveDayId] = useState<DayId>(initialSchedule.days[0]?.id ?? "day1");
   const [detailsSession, setDetailsSession] = useState<SessionWithAvailability | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
@@ -50,36 +55,18 @@ export function ScheduleExperience() {
   }, []);
 
   useEffect(() => {
-    let cancelled = false;
-    async function load() {
-      try {
-        const res = await fetch("/api/schedule");
-        if (!res.ok) throw new Error("Falha ao carregar a programação.");
-        const data = (await res.json()) as ScheduleResponse;
-        if (!cancelled) {
-          setSchedule(data);
-          setActiveDayId(data.days[0]?.id ?? "day1");
-        }
-      } catch {
-        if (!cancelled) setLoadError("Não foi possível carregar a programação. Tente recarregar a página.");
-      }
-    }
-    load();
     trackEvent("view_schedule");
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   const selectedIdsSet = useMemo(() => new Set(selectedSessionIds), [selectedSessionIds]);
 
   const selectedSessions = useMemo(
-    () => (schedule ? schedule.sessions.filter((s) => selectedIdsSet.has(s.id)) : []),
+    () => schedule.sessions.filter((s) => selectedIdsSet.has(s.id)),
     [schedule, selectedIdsSet]
   );
 
   const daySessions = useMemo(
-    () => (schedule ? schedule.sessions.filter((s) => s.dayId === activeDayId) : []),
+    () => schedule.sessions.filter((s) => s.dayId === activeDayId),
     [schedule, activeDayId]
   );
 
@@ -151,22 +138,6 @@ export function ScheduleExperience() {
     response.results
       .filter((r) => r.status === "waitlist")
       .forEach((r) => trackEvent("join_waitlist", { session_id: r.sessionId }));
-  }
-
-  if (loadError) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center">
-        <p className="text-ink/70">{loadError}</p>
-      </div>
-    );
-  }
-
-  if (!schedule) {
-    return (
-      <div className="mx-auto max-w-3xl px-4 py-16 text-center text-ink/50">
-        Carregando a programação do Cafezim...
-      </div>
-    );
   }
 
   return (
