@@ -31,10 +31,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "danilo-shimanuko",
-    // O documento de biografias enviado grafa "Shimabuko" (não "Shimanuko")
-    // — mesmo tipo de divergência já visto com o Bortoloto. Mantendo o nome
-    // como está por enquanto, mas veja o aviso no fim da resposta.
-    name: "Prof. Danilo Shimanuko",
+    name: "Prof. Danilo Shimabuko",
     credentials: "Especialista, Mestre e Doutor em Endodontia (FO-USP)",
     institution: "Professor Adjunto de Endodontia na FO-Unisanta (Santos)",
     bio: "Coordenador do Curso de Especialização em Endodontia da FAOA-APCD Central.",
