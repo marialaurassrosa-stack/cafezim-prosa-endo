@@ -23,7 +23,7 @@ Sistema Orodeka', 'Como o Sistema Orodeka ajuda a lidar com anatomias radiculare
 com eficiência e segurança', 'Uso do sistema reciprocante CC One Blue com eficiência e segurança na instrumentação.', 'Prof. Dr. Murilo Borges', '/images/speakers/murilo-borges.png', 'hands_on', 5, 'active'),
 
   ('COBE26_D2_1000_ISOLAMENTO', 'COBE26', 'day2', '2026-10-09', '10:00', '11:00', 'Isolamento:
-desafios na endodontia', 'Uma roda de conversa sobre os principais desafios do isolamento absoluto na endodontia do dia a dia.', 'Prof. Alexandre Bortolotto', '/images/speakers/alexandre-bortoloto.png', 'roda_de_conversa', 5, 'active'),
+desafios na endodontia', 'Uma roda de conversa sobre os principais desafios do isolamento absoluto na endodontia do dia a dia.', 'Prof. Alexandre Bortoloto', '/images/speakers/alexandre-bortoloto.png', 'roda_de_conversa', 5, 'active'),
 
   ('COBE26_D2_1100_BIOATIVIDADE', 'COBE26', 'day2', '2026-10-09', '11:00', '12:00', 'Bioatividade além do canal:
 Elevação de margem', 'Mais uma conversa sobre bioatividade e elevação de margem, com outro olhar clínico sobre o tema.', 'Prof. Ms. Aloísio Napoleão Araújo', '/images/speakers/aloisio-napoleao.png', 'demonstracao', 5, 'active'),

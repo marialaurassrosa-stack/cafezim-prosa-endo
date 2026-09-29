@@ -51,7 +51,7 @@ export const speakers: Speaker[] = [
   },
   {
     id: "alexandre-bortoloto",
-    name: "Prof. Alexandre Bortolotto",
+    name: "Prof. Alexandre Bortoloto",
     credentials: "Currículo a confirmar",
     institution: "Instituição a confirmar",
     bio: "Biografia a ser fornecida pela Biodental.",
