@@ -163,14 +163,19 @@ export function SessionCard({ session, isSelected, onToggleSelect, onShowDetails
             </span>
           </div>
 
-          <div className="mt-auto flex flex-row gap-3 pt-2">
+          {/* flex-col até @2xl: abaixo disso a coluna de texto não tem
+              largura suficiente para os dois botões lado a lado sem cortar
+              o texto (medido: "Quero participar" already estoura a divisão
+              50/50 em cards mais estreitos que ~672px) — empilhado, cada
+              botão fica com a largura toda e nunca precisa de reticências. */}
+          <div className="mt-auto flex flex-col gap-3 pt-2 @2xl:flex-row">
             <button
               type="button"
               onClick={onShowDetails}
-              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-full border border-purple/15 bg-white px-3 py-3 text-sm font-extrabold text-purple-dark transition-all hover:border-purple/40"
+              className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center gap-1 rounded-full border border-purple/15 bg-white px-3 py-3 text-sm font-extrabold text-purple-dark transition-all hover:border-purple/40"
             >
               <span className="truncate">Ver detalhes</span>
-              <ChevronDownIcon className="h-4 w-4 shrink-0" />
+              <ChevronDownIcon className="h-3.5 w-3.5 shrink-0" />
             </button>
 
             <SessionActionButton session={session} isSelected={isSelected} onToggleSelect={onToggleSelect} />

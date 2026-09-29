@@ -18,12 +18,12 @@ interface SessionActionButtonProps {
 }
 
 const sizeClasses: Record<"default" | "compact", string> = {
-  default: "min-h-12 flex-1 gap-1.5 px-3 py-3 text-sm",
+  default: "min-h-12 flex-1 gap-1 px-3 py-3 text-sm",
   compact: "min-h-9 flex-none gap-1 px-4 py-2 text-xs",
 };
 
 const iconSizeClasses: Record<"default" | "compact", string> = {
-  default: "h-4 w-4",
+  default: "h-3.5 w-3.5",
   compact: "h-3.5 w-3.5",
 };
 

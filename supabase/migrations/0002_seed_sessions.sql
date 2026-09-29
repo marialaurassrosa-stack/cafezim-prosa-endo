@@ -48,7 +48,10 @@ indicações técnicas e resultados', 'Quando e como incluir o ultrassom na roti
 O que realmente faz diferença no canal?', 'Uma conversa sobre irrigante e volume ideal: o que realmente muda o resultado da irrigação.', 'Profa. Dra. Josiane Almeida', '/images/speakers/josiane-almeida.png', 'roda_de_conversa', 5, 'active'),
 
   ('COBE26_D2_1700_RCONECURVATURA', 'COBE26', 'day2', '2026-10-09', '17:00', '18:00', 'Uso do RC One em canais
-com curvatura acentuada', 'Prática guiada do uso do RC One em canais com curvatura acentuada.', 'Prof. Dr. Eduardo Akisue', '/images/speakers/eduardo-akisue.png', 'hands_on', 5, 'active')
+com curvatura acentuada', 'Prática guiada do uso do RC One em canais com curvatura acentuada.', 'Prof. Dr. Eduardo Akisue', '/images/speakers/eduardo-akisue.png', 'hands_on', 5, 'active'),
+
+  ('COBE26_D3_1100_TECNOLOGIAEASY', 'COBE26', 'day3', '2026-10-10', '11:00', '12:00', 'Tecnologia Easy para facilitar
+o dia a dia do endodontista', 'Como a tecnologia Easy pode facilitar o dia a dia do consultório de endodontia.', 'Prof. Valadão', '/images/speakers/valadao.png', 'demonstracao', 5, 'active')
 
 on conflict (id) do update
   set day = excluded.day,

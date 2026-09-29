@@ -221,10 +221,27 @@ export const sessions: SessionDef[] = [
   },
 
   // ---------- DIA 03 (10/out) ----------
-  // Vazio de propósito: a planilha atual tem 2 horários nesse dia (10h e
-  // 11h/Prof. Valadão) mas nenhum dos dois tem tema definido, e o professor
-  // das 10h nem tem nome ainda — ver aviso no chat sobre o que falta antes
-  // de publicar qualquer sessão aqui.
+  // O horário das 10h continua vazio de propósito: a planilha não traz nem
+  // professor nem tema pra esse horário ainda.
+  {
+    id: "COBE26_D3_1100_TECNOLOGIAEASY",
+    dayId: "day3",
+    startTime: "11:00",
+    endTime: "12:00",
+    activityType: "demonstracao",
+    title: "Tecnologia Easy para facilitar\no dia a dia do endodontista",
+    speakerId: "valadao",
+    shortDescription: "Como a tecnologia Easy pode facilitar o dia a dia do consultório de endodontia.",
+    fullDescription:
+      "Demonstração de como a tecnologia Easy se encaixa na rotina clínica do endodontista, do preparo ao acabamento, com dicas práticas de quem acompanha o assunto de perto.",
+    highlights: [
+      "Tecnologia Easy na prática",
+      "Ganho de eficiência clínica",
+      "Dicas de prevenção de fraturas",
+    ],
+    capacity: 5,
+    status: "active",
+  },
 ];
 
 export function getSessionById(id: string): SessionDef | undefined {
