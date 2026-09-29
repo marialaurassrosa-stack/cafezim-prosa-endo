@@ -60,30 +60,10 @@ export const sessions: SessionDef[] = [
     status: "active",
   },
   {
-    id: "COBE26_D1_1600_ANATOMIAS",
+    id: "COBE26_D1_1600_CCONEBLUE",
     dayId: "day1",
     startTime: "16:00",
     endTime: "17:00",
-    activityType: "demonstracao",
-    title: "Anatomias complexas:\nSistema Orodeka",
-    speakerId: "danilo-shimanuko",
-    shortDescription:
-      "Como o Sistema Orodeka ajuda a lidar com anatomias radiculares complexas no dia a dia clínico.",
-    fullDescription:
-      "Demonstração do Sistema Orodeka aplicado a anatomias radiculares complexas, com foco em estratégias práticas para não perder a referência do canal.",
-    highlights: [
-      "Reconhecimento de anatomias complexas",
-      "Uso do Sistema Orodeka",
-      "Estratégias para casos difíceis",
-    ],
-    capacity: 5,
-    status: "active",
-  },
-  {
-    id: "COBE26_D1_1700_CCONEBLUE",
-    dayId: "day1",
-    startTime: "17:00",
-    endTime: "18:00",
     activityType: "hands_on",
     title: "CC One Blue: reciprocante\ncom eficiência e segurança",
     speakerId: "murilo-borges",
@@ -95,6 +75,26 @@ export const sessions: SessionDef[] = [
       "Protocolo de instrumentação",
       "Eficiência de corte",
       "Prevenção de fraturas",
+    ],
+    capacity: 5,
+    status: "active",
+  },
+  {
+    id: "COBE26_D1_1700_ANATOMIAS",
+    dayId: "day1",
+    startTime: "17:00",
+    endTime: "18:00",
+    activityType: "demonstracao",
+    title: "Anatomias complexas:\nSistema Orodeka",
+    speakerId: "danilo-shimanuko",
+    shortDescription:
+      "Como o Sistema Orodeka ajuda a lidar com anatomias radiculares complexas no dia a dia clínico.",
+    fullDescription:
+      "Demonstração do Sistema Orodeka aplicado a anatomias radiculares complexas, com foco em estratégias práticas para não perder a referência do canal.",
+    highlights: [
+      "Reconhecimento de anatomias complexas",
+      "Uso do Sistema Orodeka",
+      "Estratégias para casos difíceis",
     ],
     capacity: 5,
     status: "active",
@@ -137,6 +137,25 @@ export const sessions: SessionDef[] = [
       "Materiais bioativos na prática",
       "Técnica de elevação de margem",
       "Troca de experiências clínicas",
+    ],
+    capacity: 5,
+    status: "active",
+  },
+  {
+    id: "COBE26_D2_1200_BIOCERAMICOS",
+    dayId: "day2",
+    startTime: "12:00",
+    endTime: "13:00",
+    activityType: "hands_on",
+    title: "Biocerâmicos: escolha,\ntécnica e resultado",
+    speakerId: "bruno-bisi",
+    shortDescription: "Como escolher o biocerâmico certo e a técnica que garante o melhor resultado.",
+    fullDescription:
+      "Mão na massa com cimentos biocerâmicos: como escolher o material certo, a técnica de aplicação e o que esperar do resultado final.",
+    highlights: [
+      "Critérios de escolha do material",
+      "Técnica de aplicação",
+      "Resultado esperado",
     ],
     capacity: 5,
     status: "active",
@@ -202,25 +221,10 @@ export const sessions: SessionDef[] = [
   },
 
   // ---------- DIA 03 (10/out) ----------
-  {
-    id: "COBE26_D3_1000_BIOCERAMICOS",
-    dayId: "day3",
-    startTime: "10:00",
-    endTime: "11:00",
-    activityType: "hands_on",
-    title: "Biocerâmicos: escolha,\ntécnica e resultado",
-    speakerId: "bruno-bisi",
-    shortDescription: "Como escolher o biocerâmico certo e a técnica que garante o melhor resultado.",
-    fullDescription:
-      "Mão na massa com cimentos biocerâmicos: como escolher o material certo, a técnica de aplicação e o que esperar do resultado final.",
-    highlights: [
-      "Critérios de escolha do material",
-      "Técnica de aplicação",
-      "Resultado esperado",
-    ],
-    capacity: 5,
-    status: "active",
-  },
+  // Vazio de propósito: a planilha atual tem 2 horários nesse dia (10h e
+  // 11h/Prof. Valadão) mas nenhum dos dois tem tema definido, e o professor
+  // das 10h nem tem nome ainda — ver aviso no chat sobre o que falta antes
+  // de publicar qualquer sessão aqui.
 ];
 
 export function getSessionById(id: string): SessionDef | undefined {
