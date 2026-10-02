@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import os from "os";
 import path from "path";
 import { randomUUID } from "crypto";
+import { MAX_SESSIONS_PER_PARTICIPANT, SESSION_LIMIT_MESSAGE } from "@/config/site";
 import { sessions as sessionDefs } from "@/data/sessions";
 import { getSpeakerById } from "@/data/speakers";
 import type { ParticipantInput, RegistrationResultItem, RegistrationStatus } from "@/types";
@@ -124,6 +125,9 @@ export const localDb: Db = {
       }
 
       const results: RegistrationResultItem[] = [];
+      let activeCount = db.registrations.filter(
+        (r) => r.participantId === participant!.id && r.status !== "cancelled"
+      ).length;
 
       for (const sessionId of sessionIds) {
         const sessionDef = sessionDefs.find((s) => s.id === sessionId);
@@ -152,6 +156,11 @@ export const localDb: Db = {
           continue;
         }
 
+        if (activeCount >= MAX_SESSIONS_PER_PARTICIPANT) {
+          results.push({ sessionId, status: "error", message: SESSION_LIMIT_MESSAGE });
+          continue;
+        }
+
         const confirmedCount = db.registrations.filter(
           (r) => r.sessionId === sessionId && r.status === "confirmed"
         ).length;
@@ -168,6 +177,7 @@ export const localDb: Db = {
           createdAt: new Date().toISOString(),
         });
 
+        activeCount += 1;
         results.push({ sessionId, status });
       }
 

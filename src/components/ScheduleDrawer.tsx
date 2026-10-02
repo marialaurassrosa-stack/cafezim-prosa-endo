@@ -2,6 +2,7 @@
 
 import { Modal } from "@/components/Modal";
 import { XIcon } from "@/components/icons";
+import { MAX_SESSIONS_PER_PARTICIPANT } from "@/config/site";
 import { formatDayDate } from "@/data/days";
 import type { DayConfig, SessionWithAvailability } from "@/types";
 
@@ -29,7 +30,9 @@ export function ScheduleDrawer({
           <h2 id="schedule-drawer-title" className="text-xl font-bold text-ink">
             Sua programação no Cafezim
           </h2>
-          <p className="mt-1 text-sm text-ink/60">Revise, remova ou confirme suas rodas escolhidas.</p>
+          <p className="mt-1 text-sm text-ink/60">
+            Revise, remova ou confirme suas rodas escolhidas (máximo de {MAX_SESSIONS_PER_PARTICIPANT}).
+          </p>
         </div>
         <button
           type="button"

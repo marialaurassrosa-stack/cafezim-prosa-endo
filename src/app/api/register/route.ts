@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { MAX_SESSIONS_PER_PARTICIPANT, SESSION_LIMIT_MESSAGE } from "@/config/site";
 import { sessions as sessionDefs } from "@/data/sessions";
 import { db } from "@/lib/db";
 import { buildSchedule } from "@/lib/schedule";
@@ -30,7 +31,9 @@ function validate(body: unknown): { participant: ParticipantInput; sessionIds: s
   if (!isNonEmptyString(participant.phone)) return null;
   if (participant.consent !== true) return null;
 
-  const validSessionIds = sessionIds.filter((id) => sessionDefs.some((s) => s.id === id));
+  const validSessionIds = [...new Set(sessionIds as string[])].filter((id) =>
+    sessionDefs.some((s) => s.id === id)
+  );
   if (validSessionIds.length === 0) return null;
 
   return {
@@ -63,6 +66,10 @@ export async function POST(request: Request) {
       { error: "Dados inválidos. Confira os campos obrigatórios e tente novamente." },
       { status: 400 }
     );
+  }
+
+  if (parsed.sessionIds.length > MAX_SESSIONS_PER_PARTICIPANT) {
+    return NextResponse.json({ error: SESSION_LIMIT_MESSAGE }, { status: 400 });
   }
 
   const { participantId, results } = await db.registerParticipant(

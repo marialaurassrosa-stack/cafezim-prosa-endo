@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { SESSION_LIMIT_MESSAGE } from "@/config/site";
 import type { ParticipantInput, RegistrationResultItem } from "@/types";
 import type { AdminRegistrationRow, AvailabilityCount, Db } from "./types";
 
@@ -81,10 +82,11 @@ export const supabaseDb: Db = {
       status: string;
     }>;
     const participantId = rows[0]?.participant_id ?? "";
-    const results: RegistrationResultItem[] = rows.map((r) => ({
-      sessionId: r.session_id,
-      status: r.status as RegistrationResultItem["status"],
-    }));
+    const results: RegistrationResultItem[] = rows.map((r) =>
+      r.status === "limit_reached"
+        ? { sessionId: r.session_id, status: "error", message: SESSION_LIMIT_MESSAGE }
+        : { sessionId: r.session_id, status: r.status as RegistrationResultItem["status"] }
+    );
     return { participantId, results };
   },
 

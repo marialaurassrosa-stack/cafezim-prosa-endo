@@ -1,6 +1,7 @@
 "use client";
 
 import { CoffeeCupIcon } from "@/components/icons";
+import { MAX_SESSIONS_PER_PARTICIPANT } from "@/config/site";
 
 interface SelectedScheduleBarProps {
   count: number;
@@ -19,7 +20,8 @@ export function SelectedScheduleBar({ count, onViewSchedule, onFinish }: Selecte
           <div>
             <p className="text-sm leading-tight font-bold">Minha programação</p>
             <p className="text-xs text-ink/60">
-              {count} {count === 1 ? "encontro selecionado" : "encontros selecionados"}
+              {count} de {MAX_SESSIONS_PER_PARTICIPANT} {count === 1 ? "roda escolhida" : "rodas escolhidas"}
+              {count >= MAX_SESSIONS_PER_PARTICIPANT && " · limite atingido"}
             </p>
           </div>
         </div>

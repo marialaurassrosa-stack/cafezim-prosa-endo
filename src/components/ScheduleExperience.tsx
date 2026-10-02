@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { ConflictDialog } from "@/components/ConflictDialog";
 import { DaySelector } from "@/components/DaySelector";
+import { LimitDialog } from "@/components/LimitDialog";
+import { MAX_SESSIONS_PER_PARTICIPANT } from "@/config/site";
 import { RegistrationForm } from "@/components/RegistrationForm";
 import { ScheduleDrawer } from "@/components/ScheduleDrawer";
 import { ScheduleSection } from "@/components/ScheduleSection";
@@ -44,6 +46,7 @@ export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps)
   const [formOpen, setFormOpen] = useState(false);
   const [conflict, setConflict] = useState<ConflictState | null>(null);
   const [success, setSuccess] = useState<SuccessState | null>(null);
+  const [limitOpen, setLimitOpen] = useState(false);
 
   const selectedSessionIds = useScheduleStore((s) => s.selectedSessionIds);
   const select = useScheduleStore((s) => s.select);
@@ -51,7 +54,14 @@ export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps)
   const clearAll = useScheduleStore((s) => s.clearAll);
 
   useEffect(() => {
-    useScheduleStore.persist.rehydrate();
+    // Quem salvou mais de 2 rodas antes de existir o limite não pode ficar
+    // preso num carrinho que o servidor vai recusar.
+    Promise.resolve(useScheduleStore.persist.rehydrate()).then(() => {
+      const ids = useScheduleStore.getState().selectedSessionIds;
+      if (ids.length > MAX_SESSIONS_PER_PARTICIPANT) {
+        useScheduleStore.setState({ selectedSessionIds: ids.slice(0, MAX_SESSIONS_PER_PARTICIPANT) });
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -94,6 +104,11 @@ export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps)
     const conflicts = selectedSessions.filter((s) => sessionsConflict(s, session));
     if (conflicts.length > 0) {
       setConflict({ newSession: session, conflicting: conflicts });
+      return;
+    }
+
+    if (selectedSessions.length >= MAX_SESSIONS_PER_PARTICIPANT) {
+      setLimitOpen(true);
       return;
     }
 
@@ -150,6 +165,9 @@ export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps)
           <p className="mt-3 text-ink/65">
             Escolha um dia para conhecer as rodas de conversa e hands-on.
           </p>
+          <p className="mt-2 text-sm font-semibold text-purple-700">
+            Cada pessoa pode participar de até {MAX_SESSIONS_PER_PARTICIPANT} rodas.
+          </p>
         </div>
         <div className="mx-auto mt-8 max-w-xl">
           <DaySelector days={schedule.days} activeDayId={activeDayId} onSelect={handleSelectDay} />
@@ -166,6 +184,15 @@ export function ScheduleExperience({ initialSchedule }: ScheduleExperienceProps)
           />
         </div>
       </section>
+
+      <LimitDialog
+        open={limitOpen}
+        onClose={() => setLimitOpen(false)}
+        onViewSchedule={() => {
+          setLimitOpen(false);
+          setDrawerOpen(true);
+        }}
+      />
 
       <SelectedScheduleBar
         count={selectedSessions.length}
